@@ -1,7 +1,3 @@
 export default function ServicesPage() {
-	return (
-		<>
-			services
-		</>
-	)
+  return <>services</>;
 }
