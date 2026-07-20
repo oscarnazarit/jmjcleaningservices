@@ -1,10 +1,10 @@
-import Link from "next/link";
-import Image from "next/image";
-import { Mail, MapPin, Phone } from "lucide-react";
+import Link from 'next/link';
+import Image from 'next/image';
+import { Mail, MapPin, Phone } from 'lucide-react';
 
 export default function Footer() {
-	  return (
-		<footer className="border-t border-zinc-800 text-zinc-400">
+  return (
+    <footer className="border-t border-zinc-800 text-zinc-400">
       <div className="container mx-auto max-w-6xl px-4 md:px-6 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr] gap-y-10 gap-x-12 md:gap-x-16 lg:gap-x-24">
           {/* Brand */}
@@ -20,17 +20,18 @@ export default function Footer() {
                 />
               </div>
               <span className="font-bold text-base tracking-tight leading-none text-[#494848] dark:text-[#D4D4D4]">
-                JMJ 
+                JMJ
                 <span
                   className="block text-xs font-semibold tracking-widest uppercase"
-                //   style={{ color: palette.text.primary }}
+                  //   style={{ color: palette.text.primary }}
                 >
                   Cleaning Services
                 </span>
               </span>
             </Link>
             <p className="text-sm leading-relaxed text-zinc-500 dark:text-[#D4D4D4]">
-              Professional cleaning services for homes and businesses. We provide top-notch cleaning solutions tailored to your needs, ensuring a spotless environment every time.
+              Professional cleaning services for homes and businesses. We provide top-notch cleaning
+              solutions tailored to your needs, ensuring a spotless environment every time.
             </p>
           </div>
 
@@ -38,7 +39,7 @@ export default function Footer() {
           <div>
             <h3
               className="font-semibold text-sm mb-4 uppercase tracking-widest"
-            //   style={{ color: palette.text.primary }}
+              //   style={{ color: palette.text.primary }}
             >
               Services
             </h3>
@@ -64,7 +65,7 @@ export default function Footer() {
           <div>
             <h3
               className="font-semibold text-sm mb-4 uppercase tracking-widest"
-            //   style={{ color: palette.text.primary }}
+              //   style={{ color: palette.text.primary }}
             >
               Contact
             </h3>
@@ -72,18 +73,20 @@ export default function Footer() {
               <li className="flex items-start gap-2">
                 <Phone
                   className="h-4 w-4 mt-0.5 shrink-0"
-                //   style={{ color: palette.text.primary }}
+                  //   style={{ color: palette.text.primary }}
                 />
                 <span className="text-[#494848] dark:text-[#D4D4D4]">515-123-4567</span>
               </li>
               <li className="flex items-start gap-2">
                 <Mail className="h-4 w-4 mt-0.5 shrink-0" />
-                <span className="text-[#494848] dark:text-[#D4D4D4]">jmjcleaningservices@gmail.com</span>
+                <span className="text-[#494848] dark:text-[#D4D4D4]">
+                  jmjcleaningservices@gmail.com
+                </span>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin
                   className="h-4 w-4 mt-0.5 shrink-0"
-                //   style={{ color: palette.text.primary }}
+                  //   style={{ color: palette.text.primary }}
                 />
                 <span className="text-[#494848] dark:text-[#D4D4D4]">Des Moines, IA</span>
               </li>
@@ -105,5 +108,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-	  )
+  );
 }
