@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, MapPin, Phone } from 'lucide-react';
+import { companyName, companyEmail, companyPhoneNumber } from '@/app/constants';
 
 export default function Footer() {
   return (
@@ -75,12 +76,14 @@ export default function Footer() {
                   className="h-4 w-4 mt-0.5 shrink-0"
                   //   style={{ color: palette.text.primary }}
                 />
-                <span className="text-[#494848] dark:text-[#D4D4D4]">515-123-4567</span>
+                <span className="text-[#494848] dark:text-[#D4D4D4]">
+                  {companyPhoneNumber}
+                </span>
               </li>
               <li className="flex items-start gap-2">
                 <Mail className="h-4 w-4 mt-0.5 shrink-0" />
                 <span className="text-[#494848] dark:text-[#D4D4D4]">
-                  jmjcleaningservices@gmail.com
+                  {companyEmail}
                 </span>
               </li>
               <li className="flex items-start gap-2">
@@ -95,7 +98,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-zinc-800 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-zinc-600 dark:text-[#D4D4D4]">
-          <p>© {new Date().getFullYear()} JMJ Cleaning Services LLC. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {companyName}. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <Link
               href="/privacy-policy"
