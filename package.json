@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "prepare": "husky",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "prepare": "node -e \"if (!process.env.VERCEL) { require('child_process').execSync('husky', {stdio: 'inherit'}) }\""
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
