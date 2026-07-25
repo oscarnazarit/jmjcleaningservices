@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, HouseIcon, BuildingIcon, PackageOpen, PaintBucket } from 'lucide-react';
 
 export default function Home() {
   const services = [
@@ -11,88 +11,28 @@ export default function Home() {
       title: 'Residential Cleaning',
       description:
         'Comprehensive cleaning services for homes, including regular maintenance and deep cleaning.',
-      icon: () => (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="h-6 w-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3 9.75V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v3.75M3 9.75c0 .414.336.75.75.75h16.5a.75.75 0 00.75-.75M3 9.75v8.25c0 1.243.99 2.25 2.25 2.25h13.5c1.26 0 2.25-1.007 2.25-2.25V9.75M3 9.75L9.75 6m0 0L16.5 9.75m-6.75-3v12"
-          />
-        </svg>
-      ),
+      icon: HouseIcon,
       href: '/services#residential-cleaning',
     },
     {
       title: 'Commercial Cleaning',
       description:
         'Professional cleaning solutions for offices, retail spaces, and other commercial establishments.',
-      icon: () => (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="h-6 w-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3 9.75V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v3.75M3 9.75c0 .414.336.75.75.75h16.5a.75.75 0 00.75-.75M3 9.75v8.25c0 1.243.99 2.25 2.25 2.25h13.5c1.26 0 2.25-1.007 2.25-2.25V9.75M3 9.75L9.75 6m0 0L16.5 9.75m-6.75-3v12"
-          />
-        </svg>
-      ),
+      icon: BuildingIcon,
       href: '/services#commercial-cleaning',
     },
     {
       title: 'Move-in/Move-out Cleaning',
       description:
         'Thorough cleaning services for moving in or out of a property, ensuring a fresh start.',
-      icon: () => (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="h-6 w-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3 9.75V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v3.75M3 9.75c0 .414.336.75.75.75h16.5a.75.75 0 00.75-.75M3 9.75v8.25c0 1.243.99 2.25 2.25 2.25h13.5c1.26 0 2.25-1.007 2.25-2.25V9.75M3 9.75L9.75 6m0 0L16.5 9.75m-6.75-3v12"
-          />
-        </svg>
-      ),
+      icon: PackageOpen,
       href: '/services#move-in-move-out',
     },
     {
       title: 'Deep Cleaning',
       description:
         'Intensive cleaning services that target hard-to-reach areas and stubborn dirt for a pristine environment.',
-      icon: () => (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="h-6 w-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3 9.75V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v3.75M3 9.75c0 .414.336.75.75.75h16.5a.75.75 0 00.75-.75M3 9.75v8.25c0 1.243.99 2.25 2.25 2.25h13.5c1.26 0 2.25-1.007 2.25-2.25V9.75M3 9.75L9.75 6m0 0L16.5 9.75m-6.75-3v12"
-          />
-        </svg>
-      ),
+      icon: PaintBucket,
       href: '/services#deep-cleaning',
     },
   ];
