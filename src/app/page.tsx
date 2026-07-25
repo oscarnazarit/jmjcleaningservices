@@ -1,14 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen w-full flex-col bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex w-full flex-col bg-white dark:bg-black">
-        <section className="relative overflow-hidden">
+        <section className="relative overflow-hidden w-full">
           <div
             className="absolute inset-0 opacity-100"
             style={{
@@ -18,7 +15,7 @@ export default function Home() {
               opacity: 0.35,
             }}
           />
-          <div className="relative container mx-auto max-w-6xl pt-12 md:pt-16 lg:pt-20 pb-20 md:pb-28 lg:pb-36">
+          <div className="relative container mx-auto max-w-6xl pt-12 md:pt-16 lg:pt-20 pb-20 md:pb-28 lg:pb-36 pl-2 px-2">
             <div className="h-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20">
               <div className="max-w-xl flex-1 order-2 md:order-1">
                 <Badge className="mb-5 font-semibold tracking-wide uppercase text-base bg-[rgb(86,155,221)] text-[rgb(17,39,77)]">
@@ -55,7 +52,5 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </main>
-    </div>
   );
 }

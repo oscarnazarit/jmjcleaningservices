@@ -1,0 +1,213 @@
+'use client'
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+} from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
+import { useState } from "react"
+
+const ServiceOptions = [
+  { label: "Select a service", value: null },
+  { value: "residential", label: "Residential Cleaning" },
+  { value: "commercial", label: "Commercial Cleaning" },
+  { value: "deep-cleaning", label: "Deep Cleaning" },
+  { value: "move-in-out", label: "Move In/Out Cleaning" },
+  { value: "post-construction", label: "Post-Construction Cleaning" },
+  { value: "specialty-services", label: "Specialty Services" },
+]
+
+export default function ContactForm() {
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [service, setService] = useState("");
+  const [description, setDescription] = useState("");
+  const [agreement, setAgreement] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Handle form submission logic here
+    if (!name.trim() || !email.trim() || !phone.trim()  || !service.trim() || !agreement) {
+      alert("Please fill out all required fields and agree to the user agreement.");
+      return;
+    }
+    setLoading(true);
+    const phoneValidation = validatePhone(phone);
+    if (phoneValidation) {
+      setPhoneError(phoneValidation);
+      setLoading(false);
+      return;
+    }
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, service, description }),
+      });
+      if (!res.ok) throw new Error('Failed');
+      setSubmitted(true);
+    } catch {
+      alert('Something went wrong. Please try again or call us directly.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const validatePhone = (value: string) => {
+    if (!value) return null;
+    const digits = value.replace(/\D/g, '');
+    if (digits.length !== 10 && digits.length !== 11) return 'Please enter a valid US phone number';
+    return null;
+  };
+
+  return (
+    <div className="w-full max-w-md mx-auto px-2">
+      {submitted ? (
+        <div className="text-center">
+          <h2 className="text-xl font-bold mb-4">Thank You!</h2>
+          <p className="text-gray-600">
+            Your message has been submitted successfully. We will get back to you as soon as possible.
+          </p>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <FieldGroup>
+            <FieldSet>
+              <FieldLegend>Contact Us</FieldLegend>
+              <FieldDescription>
+                Give us a way to contact you and a brief description of your cleaning needs and we will get back to you as soon as possible.
+            </FieldDescription>
+            <FieldGroup>
+              <Field>
+                <FieldLabel htmlFor="name">
+                  Name
+                </FieldLabel>
+                <Input
+                  id="name-field"
+                  placeholder="John Doe"
+                  required
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="email">
+                  Email
+                </FieldLabel>
+                <Input
+                  id="email-field"
+                  placeholder="john.doe@example.com"
+                  type="email"
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <FieldDescription>
+                  We&apos;ll never share your email with anyone else.
+                </FieldDescription>
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="phone">
+                  Phone Number
+                </FieldLabel>
+                <Input
+                  id="phone-field"
+                  placeholder="(123) 456-7890"
+                  type="tel"
+                  required
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+                {phoneError && (
+                  <FieldError>
+                    {phoneError}
+                  </FieldError>
+                )}
+              </Field>
+            </FieldGroup>
+          </FieldSet>
+          <FieldSeparator />
+          <Field>
+            <FieldLabel htmlFor="service-select">
+              Service
+            </FieldLabel>
+            <Select items={ServiceOptions} onValueChange={(value) => setService(value as string)}>
+              <SelectTrigger id="service-select">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {ServiceOptions.map((item) => (
+                    <SelectItem key={item.value} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </Field>
+          <FieldSet>
+            <FieldGroup>
+              <Field>
+                <FieldLabel htmlFor="service-description">
+                  Service Description (Optional)
+                </FieldLabel>
+                <Textarea
+                  id="service-description"
+                  placeholder="A short description of your cleaning needs..."
+                  className="resize-none"
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </Field>
+            </FieldGroup>
+          </FieldSet>
+          <FieldSet>
+            <FieldLegend>User Agreement</FieldLegend>
+            <FieldDescription>
+              A quick confirmation that you agree to be contacted by JMJ Cleaning Services LLC regarding your request for cleaning services.
+            </FieldDescription>
+            <FieldGroup>
+              <Field orientation="horizontal">
+                <Checkbox
+                  id="agreement"
+                  checked={agreement}
+                  onCheckedChange={(checked) => setAgreement(Boolean(checked))}
+                  required
+                />
+                <FieldLabel
+                  htmlFor="agreement"
+                  className="font-normal"
+                >
+                  I agree to be contacted by JMJ Cleaning Services LLC regarding my request for cleaning services.
+                </FieldLabel>
+              </Field>
+            </FieldGroup>
+          </FieldSet>
+          <Field orientation="horizontal">
+            <Button type="submit" disabled={loading}>
+              {loading ? 'Submitting...' : 'Submit'}
+            </Button>
+          </Field>
+        </FieldGroup>
+      </form>)}
+    </div>
+  )
+}
