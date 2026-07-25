@@ -75,25 +75,23 @@ export default function AboutPage() {
 
                 <div className="flex flex-col gap-2 text-base font-medium leading-relaxed">
                   <p>
-                    Hi, I&apos;m the owner of JMJ Cleaning Services LLC, proudly born and raised in
-                    Des Moines, Iowa. At 25 years old, I&apos;ve built this company on the values
-                    that matter most to me—hard work, integrity, and treating every space with the
-                    same care and attention I would give my own.
-                  </p>
-                  <p>
-                    My goal is simple: provide dependable, high-quality cleaning services that leave
-                    every customer with peace of mind and a space they can truly enjoy.
+                    Hi, I&apos;m the owner of <b>JMJ Cleaning Services LLC</b>, proudly born and
+                    raised in Des Moines, Iowa. At 25 years old, I&apos;ve built this company on the
+                    values that matter most to me—hard work, integrity, and treating every space
+                    with the same care and attention I would give my own.
                   </p>
                   <p>
                     Outside of work, I enjoy traveling, spending time with family and friends, and
                     attending church. Those experiences have shaped who I am and inspire the way I
-                    serve others—with kindness, respect, and a commitment to excellence.
+                    serve others—with kindness, respect, and a commitment to excellence. My goal is
+                    simple: provide dependable, high-quality cleaning services that leave every
+                    customer with peace of mind and a space they can truly enjoy.
                   </p>
                   <p>
                     At JMJ Cleaning Services LLC, our slogan is &quot;Joyful, Meticulous, and Just
-                    Clean.&quot; Those three words reflect the standard I strive to bring to every
-                    job. Whether it&apos;s a one-time deep clean or recurring service, you can count
-                    on careful attention to detail, reliable service, and a positive attitude every
+                    Clean.&quot; Those three words reflect the standard I strive to bring to every job.
+                    Whether it&apos;s a one-time deep clean or recurring service, you can count on
+                    careful attention to detail, reliable service, and a positive attitude every
                     step of the way.
                   </p>
                   <p>
