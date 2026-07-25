@@ -12,7 +12,6 @@ export const metadata: Metadata = {
 const LAST_UPDATED = 'July 25, 2026';
 
 export default async function PrivacyPolicyPage() {
-
   const businessName = 'JMJ Cleaning Services';
   const phone = '(515) 318-1617';
   const phoneHref = `tel:+15153181617`;
@@ -24,27 +23,15 @@ export default async function PrivacyPolicyPage() {
       {/* Page header */}
       <section className="border-b py-16 md:py-20">
         <div className="container mx-auto max-w-3xl px-4 md:px-6">
-          <Badge
-            className="mb-4 font-medium uppercase text-xs tracking-wide"
-          >
-            Legal
-          </Badge>
-          <h1
-            className="text-4xl md:text-5xl font-bold mb-4"
-          >
-            Privacy Policy
-          </h1>
-          <p className="text-sm">
-            Last updated: {LAST_UPDATED}
-          </p>
+          <Badge className="mb-4 font-medium uppercase text-xs tracking-wide">Legal</Badge>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Privacy Policy</h1>
+          <p className="text-sm">Last updated: {LAST_UPDATED}</p>
         </div>
       </section>
 
       {/* Policy body */}
       <section className="py-12 md:py-16">
-        <div
-          className="container mx-auto max-w-3xl px-4 md:px-6 flex flex-col gap-10 leading-relaxed"
-        >
+        <div className="container mx-auto max-w-3xl px-4 md:px-6 flex flex-col gap-10 leading-relaxed">
           <p>
             {businessName} (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) respects your
             privacy. This Privacy Policy explains what information we collect when you use our
@@ -53,9 +40,7 @@ export default async function PrivacyPolicyPage() {
           </p>
 
           <div className="flex flex-col gap-3">
-            <h2 className="text-xl md:text-2xl font-bold">
-              Information We Collect
-            </h2>
+            <h2 className="text-xl md:text-2xl font-bold">Information We Collect</h2>
             <p>
               We only collect the information you choose to give us. When you fill out our contact
               or quote-request form, we collect:
@@ -74,9 +59,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <h2 className="text-xl md:text-2xl font-bold">
-              How We Use Your Information
-            </h2>
+            <h2 className="text-xl md:text-2xl font-bold">How We Use Your Information</h2>
             <p>We use the information you provide solely to:</p>
             <ul className="list-disc pl-6 flex flex-col gap-2">
               <li>Respond to your inquiry and answer your questions</li>
@@ -91,9 +74,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <h2 className="text-xl md:text-2xl font-bold">
-              How We Share Your Information
-            </h2>
+            <h2 className="text-xl md:text-2xl font-bold">How We Share Your Information</h2>
             <p>
               We do not sell, rent, or trade your personal information to anyone. We only share your
               information with trusted service providers who help us operate our business — for
@@ -107,9 +88,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <h2 className="text-xl md:text-2xl font-bold">
-              Data Security
-            </h2>
+            <h2 className="text-xl md:text-2xl font-bold">Data Security</h2>
             <p>
               Information submitted through our website is sent over an encrypted (HTTPS)
               connection, and we limit access to the information you share with us. However, no
@@ -119,9 +98,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <h2 className="text-xl md:text-2xl font-bold">
-              Your Choices
-            </h2>
+            <h2 className="text-xl md:text-2xl font-bold">Your Choices</h2>
             <p>You may, at any time:</p>
             <ul className="list-disc pl-6 flex flex-col gap-2">
               <li>Ask us what information we have about you</li>
@@ -135,9 +112,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <h2 className="text-xl md:text-2xl font-bold">
-              Children&apos;s Privacy
-            </h2>
+            <h2 className="text-xl md:text-2xl font-bold">Children&apos;s Privacy</h2>
             <p>
               Our website and services are intended for adults 18 and older. We do not knowingly
               collect information from children. If you believe a child has provided us with
@@ -146,9 +121,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <h2 className="text-xl md:text-2xl font-bold">
-              Changes to This Policy
-            </h2>
+            <h2 className="text-xl md:text-2xl font-bold">Changes to This Policy</h2>
             <p>
               We may update this Privacy Policy from time to time. When we do, we&apos;ll revise the
               &ldquo;Last updated&rdquo; date at the top of this page. We encourage you to review
@@ -157,9 +130,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <h2 className="text-xl md:text-2xl font-bold">
-              Contact Us
-            </h2>
+            <h2 className="text-xl md:text-2xl font-bold">Contact Us</h2>
             <p>
               If you have any questions about this Privacy Policy or your information, please reach
               out:

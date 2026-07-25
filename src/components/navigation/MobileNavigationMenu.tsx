@@ -1,13 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { MenuIcon } from 'lucide-react';
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 const links = [
   { href: '/', label: 'Home' },
