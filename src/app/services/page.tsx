@@ -5,7 +5,6 @@ export default function ServicesPage() {
       <p className="text-lg text-muted-foreground">
         Learn more about our services and how we can help you.
       </p>
-
     </div>
   );
 }
