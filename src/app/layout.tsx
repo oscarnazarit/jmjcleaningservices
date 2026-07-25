@@ -16,7 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'JMJ Cleaning Services LLC',
-  description: 'JMJ Cleaning Services LLC is a professional cleaning company that provides top-notch cleaning services for residential and commercial properties. Our team of experienced cleaners is dedicated to delivering exceptional results and ensuring customer satisfaction.',
+  description:
+    'JMJ Cleaning Services LLC is a professional cleaning company that provides top-notch cleaning services for residential and commercial properties. Our team of experienced cleaners is dedicated to delivering exceptional results and ensuring customer satisfaction.',
 };
 
 export default function RootLayout({
