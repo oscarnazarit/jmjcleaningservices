@@ -53,7 +53,7 @@ export default function Footer() {
                 <li key={link.href + link.label}>
                   <Link
                     href={link.href}
-                    className="transition-colors text-[#636363] dark:text-[#D4D4D4] hover:text-[#C79B3A] dark:hover:text-[#C79B3A]"
+                    className="transition-colors text-[#636363] dark:text-[#D4D4D4] hover:text-[rgb(17,39,77)] dark:hover:text-[rgb(17,39,77)]"
                   >
                     {link.label}
                   </Link>
@@ -100,7 +100,7 @@ export default function Footer() {
           <div className="flex items-center gap-4">
             <Link
               href="/privacy-policy"
-              className="transition-colors hover:text-[#C79B3A] dark:hover:text-[#C79B3A]"
+              className="transition-colors hover:text-[rgb(17,39,77)] dark:hover:text-[rgb(17,39,77)]"
             >
               Privacy Policy
             </Link>

@@ -81,7 +81,7 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto px-2">
+    <div className="w-full max-w-md mx-auto p-2">
       {submitted ? (
         <div className="text-center">
           <h2 className="text-xl font-bold mb-4">Thank You!</h2>
@@ -94,11 +94,6 @@ export default function ContactForm() {
         <form onSubmit={handleSubmit}>
           <FieldGroup>
             <FieldSet>
-              <FieldLegend>Contact Us</FieldLegend>
-              <FieldDescription>
-                Give us a way to contact you and a brief description of your cleaning needs and we
-                will get back to you as soon as possible.
-              </FieldDescription>
               <FieldGroup>
                 <Field>
                   <FieldLabel htmlFor="name">Name</FieldLabel>
@@ -190,7 +185,7 @@ export default function ContactForm() {
               </FieldGroup>
             </FieldSet>
             <Field orientation="horizontal">
-              <Button type="submit" disabled={loading}>
+              <Button type="submit" disabled={loading} className="bg-[rgb(86,155,221)]">
                 {loading ? 'Submitting...' : 'Submit'}
               </Button>
             </Field>
