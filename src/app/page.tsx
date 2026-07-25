@@ -2,9 +2,103 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Card, CardContent } from '@/components/ui/card';
+import { ArrowRight } from 'lucide-react';
 
 export default function Home() {
+  const services = [
+    {
+      title: 'Residential Cleaning',
+      description:
+        'Comprehensive cleaning services for homes, including regular maintenance and deep cleaning.',
+      icon: () => (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="h-6 w-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3 9.75V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v3.75M3 9.75c0 .414.336.75.75.75h16.5a.75.75 0 00.75-.75M3 9.75v8.25c0 1.243.99 2.25 2.25 2.25h13.5c1.26 0 2.25-1.007 2.25-2.25V9.75M3 9.75L9.75 6m0 0L16.5 9.75m-6.75-3v12"
+          />
+        </svg>
+      ),
+      href: '/services#residential-cleaning',
+    },
+    {
+      title: 'Commercial Cleaning',
+      description:
+        'Professional cleaning solutions for offices, retail spaces, and other commercial establishments.',
+      icon: () => (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="h-6 w-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3 9.75V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v3.75M3 9.75c0 .414.336.75.75.75h16.5a.75.75 0 00.75-.75M3 9.75v8.25c0 1.243.99 2.25 2.25 2.25h13.5c1.26 0 2.25-1.007 2.25-2.25V9.75M3 9.75L9.75 6m0 0L16.5 9.75m-6.75-3v12"
+          />
+        </svg>
+      ),
+      href: '/services#commercial-cleaning',
+    },
+    {
+      title: 'Move-in/Move-out Cleaning',
+      description:
+        'Thorough cleaning services for moving in or out of a property, ensuring a fresh start.',
+      icon: () => (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="h-6 w-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3 9.75V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v3.75M3 9.75c0 .414.336.75.75.75h16.5a.75.75 0 00.75-.75M3 9.75v8.25c0 1.243.99 2.25 2.25 2.25h13.5c1.26 0 2.25-1.007 2.25-2.25V9.75M3 9.75L9.75 6m0 0L16.5 9.75m-6.75-3v12"
+          />
+        </svg>
+      ),
+      href: '/services#move-in-move-out',
+    },
+    {
+      title: 'Deep Cleaning',
+      description:
+        'Intensive cleaning services that target hard-to-reach areas and stubborn dirt for a pristine environment.',
+      icon: () => (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="h-6 w-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3 9.75V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v3.75M3 9.75c0 .414.336.75.75.75h16.5a.75.75 0 00.75-.75M3 9.75v8.25c0 1.243.99 2.25 2.25 2.25h13.5c1.26 0 2.25-1.007 2.25-2.25V9.75M3 9.75L9.75 6m0 0L16.5 9.75m-6.75-3v12"
+          />
+        </svg>
+      ),
+      href: '/services#deep-cleaning',
+    },
+  ];
+  
   return (
+    <>
     <section className="relative overflow-hidden w-full">
       <div
         className="absolute inset-0 opacity-100"
@@ -51,5 +145,70 @@ export default function Home() {
         </div>
       </div>
     </section>
+    {/* Services preview */}
+      <section className="py-20 md:py-24">
+        <div className="container mx-auto max-w-6xl px-4 md:px-6">
+          <div className="text-center mb-12">
+            <Badge
+              className="mb-4 font-semibold uppercase text-sm tracking-wide"
+            >
+              What We Do
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold" >
+              Our Services
+            </h2>
+            <p
+              className="mt-3 font-medium max-w-xl mx-auto"
+            >
+              Professional cleaning services for homes and businesses. We provide top-notch cleaning
+              solutions tailored to your needs, ensuring a spotless environment every time.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {services.map((service) => {
+              const Icon = service.icon;
+              return (
+                <Card
+                  key={service.title}
+                  className="transition-colors group ring-2 ring-[rgb(89,153,204)] hover:bg-[rgb(17,39,77)]/10"
+                >
+                  <CardContent className="p-6 flex flex-col gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-lg ring-2 ring-[rgb(89,153,204)] transition-colors">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg mb-2">{service.title}</h3>
+                      <p
+                        className="text-sm font-semibold leading-relaxed dark:text-[#D4D4D4]"
+                      >
+                        {service.description}
+                      </p>
+                    </div>
+                    <Link
+                      href={service.href}
+                      className="text-sm font-semibold flex items-center gap-1 mt-auto transition-colors text-[rgb(17,39,77)] hover:text-[rgb(17,39,77)] dark:text-[#D4D4D4] dark:hover:text-[#D4D4D4]"
+                    >
+                      Learn more <ArrowRight className="h-3 w-3" />
+                    </Link>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+          <p
+            className="text-sm font-medium text-center mt-8"
+          >
+            Need something not listed?{' '}
+            <Link
+              href="/contact"
+              className="underline underline-offset-4 font-medium hover:opacity-75 transition-opacity"
+            >
+              Just ask
+            </Link>{' '}
+            — we have experience in more than just what&apos;s shown here.
+          </p>
+        </div>
+      </section>
+      </>
   );
 }

@@ -47,7 +47,7 @@ export default function ContactForm() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Handle form submission logic here
-    if (!name.trim() || !email.trim() || !phone.trim() || !service.trim() || !agreement) {
+    if (!name.trim() || !email.trim() || !service.trim() || !agreement) {
       alert('Please fill out all required fields and agree to the user agreement.');
       return;
     }
@@ -118,12 +118,11 @@ export default function ContactForm() {
                   </FieldDescription>
                 </Field>
                 <Field>
-                  <FieldLabel htmlFor="phone">Phone Number</FieldLabel>
+                  <FieldLabel htmlFor="phone">Phone Number (Optional)</FieldLabel>
                   <Input
                     id="phone-field"
                     placeholder="(123) 456-7890"
                     type="tel"
-                    required
                     onChange={(e) => setPhone(e.target.value)}
                   />
                   {phoneError && <FieldError>{phoneError}</FieldError>}
