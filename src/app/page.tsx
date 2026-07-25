@@ -127,14 +127,13 @@ export default function Home() {
             })}
           </div>
           <p className="text-sm font-medium text-center mt-8">
-            Need something not listed?{' '}
+            View all services{' '}
             <Link
-              href="/contact"
+              href="/services"
               className="underline underline-offset-4 font-medium hover:opacity-75 transition-opacity"
             >
-              Just ask
+              here.
             </Link>{' '}
-            — we have experience in more than just what&apos;s shown here.
           </p>
         </div>
       </section>

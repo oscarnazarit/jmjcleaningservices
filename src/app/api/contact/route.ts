@@ -24,7 +24,24 @@ export async function POST(req: Request) {
 
   submittedIPs.set(ip, Date.now());
   try {
-    const { name, email, phone, service, description } = await req.json();
+    const {
+      name,
+      email,
+      phone,
+      service,
+      description,
+      bedrooms,
+      bathrooms,
+      businessType,
+      specialtyType,
+    } = await req.json();
+
+    const extraDetails =
+      service === 'commercial'
+        ? `Business Type: ${businessType || 'Not specified'}`
+        : service === 'specialty-services'
+          ? `Specialty Type: ${specialtyType || 'Not specified'}`
+          : `Bedrooms: ${bedrooms || 'Not specified'}<br/>Bathrooms: ${bathrooms || 'Not specified'}`;
 
     await transporter.sendMail({
       from: `"JMJ Cleaning Services Website" <${process.env.GMAIL_USER}>`,
@@ -78,6 +95,12 @@ export async function POST(req: Request) {
 									<td style="border-top:1px solid #f0f0f0;padding-top:20px;">
 										<p style="margin:0 0 4px;font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#a1a1aa;">Service</p>
 										<p style="margin:0;font-size:15px;color:#18181b;">${service || 'Not specified'}</p>
+									</td>
+									</tr>
+									<tr>
+									<td style="padding-top:20px;">
+										<p style="margin:0 0 4px;font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#a1a1aa;">Service Details</p>
+										<p style="margin:0;font-size:15px;color:#18181b;">${extraDetails}</p>
 									</td>
 									</tr>
 								</table>

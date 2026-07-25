@@ -33,11 +33,33 @@ const ServiceOptions = [
   { value: 'specialty-services', label: 'Specialty Services' },
 ];
 
+const BusinessTypeOptions = [
+  { label: 'Select a business type', value: '' },
+  { label: 'Office', value: 'office' },
+  { label: 'Retail', value: 'retail' },
+  { label: 'Medical', value: 'medical' },
+  { label: 'Industrial', value: 'industrial' },
+  { label: 'Gym/Fitness', value: 'gym-fitness' },
+  { label: 'Restaurant', value: 'restaurant' },
+  { label: 'Other', value: 'other' },
+];
+
+const SpecialtyServiceOptions = [
+  { label: 'Select a specialty service', value: '' },
+  { label: 'Carpet Cleaning', value: 'carpet-cleaning' },
+  { label: 'Pressure Washing', value: 'pressure-washing' },
+  { label: 'Window Cleaning', value: 'window-cleaning' },
+];
+
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [service, setService] = useState('');
+  const [bedrooms, setBedrooms] = useState('');
+  const [bathrooms, setBathrooms] = useState('');
+  const [businessType, setBusinessType] = useState('');
+  const [specialtyType, setSpecialtyType] = useState('');
   const [description, setDescription] = useState('');
   const [agreement, setAgreement] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -62,7 +84,17 @@ export default function ContactForm() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, service, description }),
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          service,
+          description,
+          bedrooms,
+          bathrooms,
+          businessType,
+          specialtyType,
+        }),
       });
       if (!res.ok) throw new Error('Failed');
       setSubmitted(true);
@@ -147,6 +179,74 @@ export default function ContactForm() {
                 </SelectContent>
               </Select>
             </Field>
+
+            {service === 'commercial' ? (
+              <Field>
+                <FieldLabel htmlFor="business-type">Business Type</FieldLabel>
+                <Select onValueChange={(value) => setBusinessType(value as string)}>
+                  <SelectTrigger id="business-type">
+                    <SelectValue placeholder="Select a business type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {BusinessTypeOptions.map((item) => (
+                        <SelectItem key={item.value} value={item.value}>
+                          {item.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </Field>
+            ) : service === 'specialty-services' ? (
+              <Field>
+                <FieldLabel htmlFor="specialty-service">Specialty Service</FieldLabel>
+                <Select onValueChange={(value) => setSpecialtyType(value as string)}>
+                  <SelectTrigger id="specialty-service">
+                    <SelectValue placeholder="Select a specialty service" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {SpecialtyServiceOptions.map((item) => (
+                        <SelectItem key={item.value} value={item.value}>
+                          {item.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </Field>
+            ) : service === 'residential' ||
+              service === 'deep-cleaning' ||
+              service === 'move-in-out' ||
+              service === 'post-construction' ? (
+              <FieldSet>
+                <FieldGroup>
+                  <Field>
+                    <FieldLabel htmlFor="bedrooms">Number of Bedrooms</FieldLabel>
+                    <Input
+                      id="bedrooms"
+                      type="number"
+                      min="0"
+                      placeholder="0"
+                      value={bedrooms}
+                      onChange={(e) => setBedrooms(e.target.value)}
+                    />
+                  </Field>
+                  <Field>
+                    <FieldLabel htmlFor="bathrooms">Number of Bathrooms</FieldLabel>
+                    <Input
+                      id="bathrooms"
+                      type="number"
+                      min="0"
+                      placeholder="0"
+                      value={bathrooms}
+                      onChange={(e) => setBathrooms(e.target.value)}
+                    />
+                  </Field>
+                </FieldGroup>
+              </FieldSet>
+            ) : null}
             <FieldSet>
               <FieldGroup>
                 <Field>

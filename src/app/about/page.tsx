@@ -8,7 +8,7 @@ export default function AboutPage() {
   const bullets = [
     'Professional cleaning services for homes and businesses.',
     'Tailored cleaning solutions to meet your specific needs.',
-    'Experienced and trained cleaning staff.',
+    // 'Experienced and trained cleaning staff.',
     'Eco-friendly and safe cleaning products.',
   ];
   const displayValues = [
@@ -46,7 +46,7 @@ export default function AboutPage() {
           <div className="container mx-auto max-w-6xl px-4 md:px-6">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
               {/* Photo */}
-              <div className="lg:col-span-2">
+              <div className="lg:col-span-2 my-auto">
                 <div
                   className="relative overflow-hidden rounded-2xl border"
                   style={{ aspectRatio: '4/5' }}
@@ -63,29 +63,42 @@ export default function AboutPage() {
               </div>
 
               {/* Bio */}
-              <div className="lg:col-span-3 flex flex-col gap-6">
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-widest mb-2">Our Story</p>
+              <div className="lg:col-span-3 flex flex-col gap-4">
+                <div className="flex flex-row gap-1">
                   {/* name */}
                   <h2 className="text-3xl md:text-4xl font-bold leading-tight">Nayeli Nazarit</h2>
                   {/* title of position */}
-                  <h2 className="text-2xl md:text-3xl font-semibold leading-tight">
-                    Owner & Founder
-                  </h2>
+                  <h3 className="text-2xl md:text-3xl font-semibold leading-tight my-auto italic">
+                    - Owner & Founder
+                  </h3>
                 </div>
 
-                <div className="flex flex-col gap-4 text-base font-medium leading-relaxed">
+                <div className="flex flex-col gap-2 text-base font-medium leading-relaxed">
                   <p>
-                    This can be a paragraph about owner and how they got started. Can remove any
-                    text if necessary, but i think 3 paragraphs is a good amount.
+                    Hi, I&apos;m the owner of JMJ Cleaning Services LLC, proudly born and raised in
+                    Des Moines, Iowa. At 25 years old, I&apos;ve built this company on the values
+                    that matter most to me—hard work, integrity, and treating every space with the
+                    same care and attention I would give my own.
                   </p>
                   <p>
-                    This can be a paragraph about the company&apos;s mission and values. Can remove
-                    any text if necessary, but i think 3 paragraphs is a good amount.
+                    My goal is simple: provide dependable, high-quality cleaning services that leave
+                    every customer with peace of mind and a space they can truly enjoy.
                   </p>
                   <p>
-                    This can be a paragraph about the company&apos;s history and achievements. Can
-                    remove any text if necessary, but i think 3 paragraphs is a good amount.
+                    Outside of work, I enjoy traveling, spending time with family and friends, and
+                    attending church. Those experiences have shaped who I am and inspire the way I
+                    serve others—with kindness, respect, and a commitment to excellence.
+                  </p>
+                  <p>
+                    At JMJ Cleaning Services LLC, our slogan is &quot;Joyful, Meticulous, and Just
+                    Clean.&quot; Those three words reflect the standard I strive to bring to every
+                    job. Whether it&apos;s a one-time deep clean or recurring service, you can count
+                    on careful attention to detail, reliable service, and a positive attitude every
+                    step of the way.
+                  </p>
+                  <p>
+                    Thank you for considering JMJ Cleaning Services LLC. I look forward to helping
+                    you keep your home or business clean, fresh, and welcoming.
                   </p>
                 </div>
 
