@@ -89,9 +89,9 @@ export default function AboutPage() {
                   </p>
                   <p>
                     At JMJ Cleaning Services LLC, our slogan is &quot;Joyful, Meticulous, and Just
-                    Clean.&quot; Those three words reflect the standard I strive to bring to every job.
-                    Whether it&apos;s a one-time deep clean or recurring service, you can count on
-                    careful attention to detail, reliable service, and a positive attitude every
+                    Clean.&quot; Those three words reflect the standard I strive to bring to every
+                    job. Whether it&apos;s a one-time deep clean or recurring service, you can count
+                    on careful attention to detail, reliable service, and a positive attitude every
                     step of the way.
                   </p>
                   <p>
