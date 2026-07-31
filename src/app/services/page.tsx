@@ -2,6 +2,7 @@ import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { ServiceTabs } from '@/components/services/ServiceTabs';
 
 export default function ServicesPage() {
   return (
@@ -55,6 +56,9 @@ export default function ServicesPage() {
             </div>
           </div>
         </div>
+      </section>
+      <section>
+        <ServiceTabs />
       </section>
     </>
   );
