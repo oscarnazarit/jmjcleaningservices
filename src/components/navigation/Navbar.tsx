@@ -22,6 +22,9 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2">
             <Image src="/logo-icon.png" alt="Logo" width={128} height={128} className="shrink-0" />
           </Link>
+          <h1 className="text-lg font-bold tracking-tight text-[rgb(17,39,77)] md:text-xl">
+            JMJ Cleaning Services
+          </h1>
           {isMobile ? (
             <MobileNavigationMenu />
           ) : (

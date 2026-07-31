@@ -1,6 +1,7 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Badge } from '@/components/ui/badge';
+import { buttonVariants } from '@/components/ui/button';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 export default function ServicesPage() {
   return (
@@ -22,7 +23,7 @@ export default function ServicesPage() {
                 Services for Every Need
               </Badge>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6 text-[rgb(17,39,77)] dark:text-[#D4D4D4]">
-                Just Clean. 
+                Just Clean.
                 <br />
                 <span style={{ color: 'rgb(86,155,221)' }}>Just Right.</span>
               </h1>
@@ -32,12 +33,24 @@ export default function ServicesPage() {
                 time.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <Button className=" bg-[rgb(86,155,221)] dark:text-[#D4D4D4] dark:hover:text-[#D4D4D4] font-semibold transition-colors">
-                  <Link href="/contact">Get a Free Quote</Link>
-                </Button>
-                <Button className="bg-[rgb(86,155,221)] border-[#D4D4D4] dark:border-[#D4D4D4] dark:text-[#D4D4D4] dark:hover:text-[#D4D4D4] font-semibold">
-                  <Link href="/services">Download Brochure</Link>
-                </Button>
+                <Link
+                  href="/contact"
+                  className={cn(
+                    buttonVariants({ variant: 'default' }),
+                    'bg-[rgb(86,155,221)] text-white dark:text-[#D4D4D4] dark:hover:text-[#D4D4D4]'
+                  )}
+                >
+                  Get a Free Quote
+                </Link>
+                <Link
+                  href="/services"
+                  className={cn(
+                    buttonVariants({ variant: 'default' }),
+                    'border border-[#D4D4D4] bg-[rgb(86,155,221)] text-white dark:border-[#D4D4D4] dark:text-[#D4D4D4] dark:hover:text-[#D4D4D4]'
+                  )}
+                >
+                  Download Brochure
+                </Link>
               </div>
             </div>
           </div>

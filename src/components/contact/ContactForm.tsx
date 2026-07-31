@@ -266,7 +266,7 @@ export default function ContactForm() {
               <FieldLegend>User Agreement</FieldLegend>
               <FieldDescription>
                 A quick confirmation that you agree to be contacted by JMJ Cleaning Services LLC
-                regarding your request for cleaning services.
+                regarding your request for a free quote.
               </FieldDescription>
               <FieldGroup>
                 <Field orientation="horizontal">
@@ -277,8 +277,10 @@ export default function ContactForm() {
                     required
                   />
                   <FieldLabel htmlFor="agreement" className="font-normal">
-                    I agree to be contacted by JMJ Cleaning Services LLC regarding my request for
-                    cleaning services.
+                    <p>
+                      I agree to be contacted by JMJ Cleaning Services LLC regarding my request for
+                      a free quote. <span className="ml-1 text-red-500">*</span>
+                    </p>
                   </FieldLabel>
                 </Field>
               </FieldGroup>

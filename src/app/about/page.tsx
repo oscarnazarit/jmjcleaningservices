@@ -1,8 +1,9 @@
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle2, Clock } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 export default function AboutPage() {
   const bullets = [
@@ -109,9 +110,15 @@ export default function AboutPage() {
                   ))}
                 </ul>
 
-                <Button size="lg" className="bg-[rgb(86,155,221)] font-bold text-base">
-                  <Link href="/contact">Get a Free Quote</Link>
-                </Button>
+                <Link
+                  href="/contact"
+                  className={cn(
+                    buttonVariants({ size: 'lg' }),
+                    'bg-[rgb(86,155,221)] font-bold text-base text-white'
+                  )}
+                >
+                  Get a Free Quote
+                </Link>
               </div>
             </div>
           </div>

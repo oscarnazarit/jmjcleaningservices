@@ -1,9 +1,10 @@
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, HouseIcon, BuildingIcon, PackageOpen, PaintBucket } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export default function Home() {
   const services = [
@@ -66,12 +67,24 @@ export default function Home() {
                 time.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <Button className=" bg-[rgb(86,155,221)] dark:text-[#D4D4D4] dark:hover:text-[#D4D4D4] font-semibold transition-colors">
-                  <Link href="/contact">Get a Free Quote</Link>
-                </Button>
-                <Button className="bg-[rgb(86,155,221)] border-[#D4D4D4] dark:border-[#D4D4D4] dark:text-[#D4D4D4] dark:hover:text-[#D4D4D4] font-semibold">
-                  <Link href="/services">View Our Services</Link>
-                </Button>
+                <Link
+                  href="/contact"
+                  className={cn(
+                    buttonVariants({ variant: 'default' }),
+                    'bg-[rgb(86,155,221)] text-white dark:text-[#D4D4D4] dark:hover:text-[#D4D4D4]'
+                  )}
+                >
+                  Get a Free Quote
+                </Link>
+                <Link
+                  href="/services"
+                  className={cn(
+                    buttonVariants({ variant: 'default' }),
+                    'border border-[#D4D4D4] bg-[rgb(86,155,221)] text-white dark:border-[#D4D4D4] dark:text-[#D4D4D4] dark:hover:text-[#D4D4D4]'
+                  )}
+                >
+                  View Our Services
+                </Link>
               </div>
             </div>
             <div className="flex-shrink-0 order-1 md:order-2">
