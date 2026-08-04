@@ -90,7 +90,7 @@ export default function Home() {
             <div className="flex-shrink-0 order-1 md:order-2">
               <Image
                 src="/jmj-logo.png"
-                alt="JMJ Cleaning Services Logo"
+                alt="JMJ Cleaning Services"
                 width={315}
                 height={315}
                 className="object-contain rounded-2xl shadow-lg"
