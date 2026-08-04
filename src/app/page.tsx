@@ -5,6 +5,13 @@ import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, HouseIcon, BuildingIcon, PackageOpen, PaintBucket } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'JMJ Cleaning Services LLC',
+  description:
+    'JMJ Cleaning Services LLC is a professional cleaning company that provides top-notch cleaning services for residential and commercial properties. Our team of experienced cleaners is dedicated to delivering exceptional results and ensuring customer satisfaction.',
+};
 
 export default function Home() {
   const services = [
@@ -90,7 +97,7 @@ export default function Home() {
             <div className="flex-shrink-0 order-1 md:order-2">
               <Image
                 src="/jmj-logo.png"
-                alt="JMJ Cleaning Services"
+                alt="JMJ Cleaning Services Logo"
                 width={315}
                 height={315}
                 className="object-contain rounded-2xl shadow-lg"
