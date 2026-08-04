@@ -39,11 +39,10 @@ export default function AboutPage() {
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-zinc-50 font-sans dark:bg-black items-center">
-      <h1 className="text-3xl font-bold mb-4">About Us</h1>
-      <p className="text-lg text-muted-foreground">Learn more about our company and what we do.</p>
+      <h1 className="text-3xl font-bold mt-4">About JMJ Cleaning Services LLC</h1>
       <div className="flex flex-col">
         {/* Story section — image + bio */}
-        <section className="py-16 md:py-24">
+        <section className="py-4">
           <div className="container mx-auto max-w-6xl px-4 md:px-6">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
               {/* Photo */}
@@ -125,7 +124,7 @@ export default function AboutPage() {
         </section>
 
         {/* Values */}
-        <section className="py-16 md:py-4">
+        <section className="py-16 md:py-4 mb-16">
           <div className="container mx-auto max-w-6xl px-4 md:px-6">
             <div className="text-center mb-12">
               <Badge className="mb-4 font-semibold uppercase text-sm tracking-wide">

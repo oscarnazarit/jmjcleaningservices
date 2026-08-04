@@ -1,7 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, MapPin, Phone } from 'lucide-react';
-import { companyName, companyEmail, companyPhoneNumber } from '@/app/constants';
+import { companyName, companyEmail, companyPhoneNumber, serviceTypes } from '@/app/constants';
 
 export default function Footer() {
   return (
@@ -45,14 +47,10 @@ export default function Footer() {
               Services
             </h3>
             <ul className="flex flex-col gap-2 text-sm">
-              {[
-                { label: 'Deep Cleaning', href: '/services#deep-cleaning' },
-                { label: 'Regular Cleaning', href: '/services#regular-cleaning' },
-                { label: 'Move-in/Move-out', href: '/services#move-in-move-out' },
-              ].map((link) => (
-                <li key={link.href + link.label}>
+              {serviceTypes.map((link) => (
+                <li key={link.label}>
                   <Link
-                    href={link.href}
+                    href={`/services#${link.name}`}
                     className="transition-colors text-[#636363] dark:text-[#D4D4D4] hover:text-[rgb(17,39,77)] dark:hover:text-[rgb(17,39,77)]"
                   >
                     {link.label}
