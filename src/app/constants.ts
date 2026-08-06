@@ -1,6 +1,6 @@
 export const companyName = 'JMJ Cleaning Services LLC';
 export const companyEmail = 'jmjcleaningservicesllc@gmail.com';
-export const companyPhoneNumber = '515-318-1617';
+export const companyPhoneNumber = '515-421-8259';
 export type Service = {
   name: string;
   label: string;

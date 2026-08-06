@@ -12,6 +12,7 @@ import {
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { companyPhoneNumber } from '@/app/constants';
 
 const links = [
   { href: '/', label: 'Home' },
@@ -73,7 +74,7 @@ export default function MobileNavigationMenu() {
             Quick contact
           </p>
           <Link
-            href="tel:+1-515-318-1617"
+            href={`tel:+1-${companyPhoneNumber}`}
             className={cn(buttonVariants({ variant: 'default' }), 'bg-[rgb(86,155,221)] text-lg')}
           >
             <span className="flex flex-row gap-2">
