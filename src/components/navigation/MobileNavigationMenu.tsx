@@ -11,19 +11,15 @@ import {
 } from '@/components/ui/sheet';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { companyPhoneNumber } from '@/app/constants';
-
-const links = [
-  { href: '/', label: 'Home' },
-  { href: '/services', label: 'Services' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
-];
+import { copy } from '@/app/text';
+import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageSelector from '@/components/navigation/LanguageSelector';
 
 export default function MobileNavigationMenu() {
   const [open, setOpen] = useState(false);
-  const { language, setLanguage } = useLanguage();
+  const { language } = useLanguage();
+  const links = copy[language].navbar;
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -33,22 +29,12 @@ export default function MobileNavigationMenu() {
       </SheetTrigger>
       <SheetContent side="right" className="w-72 sm:w-80">
         <SheetHeader className="text-center">
-          <SheetTitle className="text-center mt-1 text-lg font-bold tracking-tight">
+          <SheetTitle className="mt-1 text-center text-lg font-bold tracking-tight">
             JMJ Cleaning Services
           </SheetTitle>
         </SheetHeader>
         <div className="px-4 text-sm text-[rgb(17,39,77)]">
-          <div className="flex items-center justify-between gap-3 rounded border border-[rgb(17,39,77)]/20 bg-[rgb(86,155,221)]/10 px-3 py-2">
-            <span className="font-medium">Language</span>
-            <select
-              value={language}
-              onChange={(event) => setLanguage(event.target.value as 'en' | 'es')}
-              className="rounded border border-[rgb(17,39,77)]/20 bg-white px-2 py-1 text-sm font-medium text-[rgb(17,39,77)] outline-none"
-            >
-              <option value="en">English</option>
-              <option value="es">Español</option>
-            </select>
-          </div>
+          <LanguageSelector />
         </div>
         <nav className="flex h-full flex-col gap-4 pt-2">
           <div className="px-4">
@@ -61,7 +47,7 @@ export default function MobileNavigationMenu() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="bg-[rgb(86,155,221)]/5 p-4 text-lg font-semibold text-[rgb(17,39,77)] transition-all hover:bg-[rgb(86,155,221)]/35 hover:text-[rgb(17,39,77)] text-center"
+                  className="bg-[rgb(86,155,221)]/5 p-4 text-center text-lg font-semibold text-[rgb(17,39,77)] transition-all hover:bg-[rgb(86,155,221)]/35 hover:text-[rgb(17,39,77)]"
                 >
                   {link.label}
                 </Link>
