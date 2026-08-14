@@ -5,13 +5,16 @@ const gmailUser = process.env.GMAIL_USER;
 const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
 const clientEmail = process.env.CLIENT_EMAIL;
 
-const transporter = gmailUser && gmailAppPassword ? nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: gmailUser,
-    pass: gmailAppPassword,
-  },
-}) : null;
+const transporter =
+  gmailUser && gmailAppPassword
+    ? nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: gmailUser,
+          pass: gmailAppPassword,
+        },
+      })
+    : null;
 
 const submittedIPs = new Map<string, number>();
 
@@ -29,7 +32,9 @@ export async function POST(req: Request) {
   submittedIPs.set(ip, Date.now());
   try {
     if (!transporter || !gmailUser || !gmailAppPassword || !clientEmail) {
-      throw new Error('Missing email configuration: GMAIL_USER, GMAIL_APP_PASSWORD, and CLIENT_EMAIL must be set.');
+      throw new Error(
+        'Missing email configuration: GMAIL_USER, GMAIL_APP_PASSWORD, and CLIENT_EMAIL must be set.'
+      );
     }
 
     const {

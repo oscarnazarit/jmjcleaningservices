@@ -221,7 +221,8 @@ export const copy = {
       changes_intro:
         'We may update this Privacy Policy from time to time. When we do, we’ll revise the “Last updated” date at the top of this page. We encourage you to review this page periodically.',
       contact_title: 'Contact Us',
-      contact_intro: 'If you have any questions about this Privacy Policy or your information, please reach out:',
+      contact_intro:
+        'If you have any questions about this Privacy Policy or your information, please reach out:',
       contact_form_prefix: 'Or use our',
       contact_form_link: 'contact form',
       contact_form_suffix: '.',
@@ -321,8 +322,7 @@ export const copy = {
       thank_you: 'Thank You!',
       success_message:
         'Your message has been submitted successfully. We will get back to you as soon as possible.',
-      required_error:
-        'Please fill out all required fields and agree to the user agreement.',
+      required_error: 'Please fill out all required fields and agree to the user agreement.',
       phone_error: 'Please enter a valid US phone number',
       submission_error: 'Something went wrong. Please try again or call us directly.',
       business_type_label: 'Business Type',
@@ -363,7 +363,7 @@ export const copy = {
         { label: 'Post-Construction Cleaning', value: 'post-construction' },
         { label: 'Specialty Services', value: 'specialty-services' },
       ],
-	  photos_label: "Photos (Optional)"
+      photos_label: 'Photos (Optional)',
     },
     footer: {
       description:
@@ -600,7 +600,8 @@ export const copy = {
       changes_intro:
         'Podemos actualizar esta Política de Privacidad de vez en cuando. Cuando lo hagamos, revisaremos la fecha de “Última actualización” en la parte superior de esta página. Le recomendamos revisar esta página periódicamente.',
       contact_title: 'Contáctanos',
-      contact_intro: 'Si tiene alguna pregunta sobre esta Política de Privacidad o sobre su información, contáctenos:',
+      contact_intro:
+        'Si tiene alguna pregunta sobre esta Política de Privacidad o sobre su información, contáctenos:',
       contact_form_prefix: 'O use nuestro',
       contact_form_link: 'formulario de contacto',
       contact_form_suffix: '.',
@@ -699,10 +700,8 @@ export const copy = {
       submit: 'Enviar',
       submitting: 'Enviando...',
       thank_you: '¡Gracias!',
-      success_message:
-        'Tu mensaje se ha enviado correctamente. Te responderemos lo antes posible.',
-      required_error:
-        'Completa todos los campos requeridos y acepta el acuerdo de usuario.',
+      success_message: 'Tu mensaje se ha enviado correctamente. Te responderemos lo antes posible.',
+      required_error: 'Completa todos los campos requeridos y acepta el acuerdo de usuario.',
       phone_error: 'Ingresa un número de teléfono válido de EE. UU.',
       submission_error: 'Algo salió mal. Inténtalo de nuevo o llámanos directamente.',
       business_type_label: 'Tipo de negocio',
@@ -743,7 +742,7 @@ export const copy = {
         { label: 'Limpieza post-construcción', value: 'post-construction' },
         { label: 'Servicios especiales', value: 'specialty-services' },
       ],
-	  photos_label: "Fotos (opcional)"
+      photos_label: 'Fotos (opcional)',
     },
     footer: {
       description:

@@ -18,7 +18,9 @@ export default function PrivacyPolicyContent() {
     <div className="flex flex-col">
       <section className="border-b py-16 md:py-20">
         <div className="container mx-auto max-w-3xl px-4 md:px-6">
-          <Badge className="mb-4 font-medium uppercase text-xs tracking-wide">{text.legal_badge}</Badge>
+          <Badge className="mb-4 font-medium uppercase text-xs tracking-wide">
+            {text.legal_badge}
+          </Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{text.title}</h1>
           <p className="text-sm">
             {text.updated} {LAST_UPDATED}
