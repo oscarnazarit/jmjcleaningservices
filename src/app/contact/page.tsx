@@ -9,6 +9,20 @@ export default function ContactPage() {
   const { language } = useLanguage();
   const text = copy[language].contact;
   const [isOpen, setIsOpen] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  if (isSubmitted) {
+    return (
+      <div className="flex min-h-screen w-full items-center justify-center bg-zinc-50 px-4 font-sans dark:bg-black">
+        <div className="text-center">
+          <h2 className="mb-4 text-2xl font-bold text-[rgb(17,39,77)] dark:text-white">
+            {text.thank_you}
+          </h2>
+          <p className="text-gray-600 dark:text-slate-300">{text.success_message}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center bg-zinc-50 font-sans dark:bg-black">
@@ -63,7 +77,7 @@ export default function ContactPage() {
         )}
       </div>
 
-      <ContactForm />
+      <ContactForm onSubmitted={() => setIsSubmitted(true)} />
     </div>
   );
 }

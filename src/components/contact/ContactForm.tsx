@@ -26,7 +26,57 @@ import { copy } from '@/app/text';
 import { Upload } from 'lucide-react';
 import { useState } from 'react';
 
-export default function ContactForm() {
+type ContactFormProps = {
+  onSubmitted?: () => void;
+};
+
+const MAX_PHOTOS_PER_REQUEST = 3;
+const MAX_IMAGE_DIMENSION = 1600;
+
+const compressImage = (file: File) =>
+  new Promise<{ name: string; data: string }>((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const result = reader.result;
+      if (typeof result !== 'string') {
+        reject(new Error('Failed to read file'));
+        return;
+      }
+
+      const image = new Image();
+
+      image.onload = () => {
+        const canvas = document.createElement('canvas');
+        const scale = Math.min(1, MAX_IMAGE_DIMENSION / Math.max(image.width, image.height));
+        canvas.width = Math.max(1, Math.round(image.width * scale));
+        canvas.height = Math.max(1, Math.round(image.height * scale));
+
+        const context = canvas.getContext('2d');
+        if (!context) {
+          reject(new Error('Failed to prepare image'));
+          return;
+        }
+
+        context.fillStyle = '#ffffff';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.72);
+        const fileName = `${file.name.replace(/\.[^/.]+$/, '')}.jpg`;
+
+        resolve({ name: fileName, data: compressedDataUrl.split(',')[1] ?? compressedDataUrl });
+      };
+
+      image.onerror = () => reject(new Error('Failed to read file'));
+      image.src = result;
+    };
+
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
+  });
+
+export default function ContactForm({ onSubmitted }: ContactFormProps) {
   const { language } = useLanguage();
   const text = copy[language].contact;
 
@@ -59,7 +109,6 @@ export default function ContactForm() {
   const [agreement, setAgreement] = useState(false);
   const [loading, setLoading] = useState(false);
   const [phoneError, setPhoneError] = useState('');
-  const [submitted, setSubmitted] = useState(false);
 
   const handlePhotoUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files ?? []);
@@ -68,26 +117,19 @@ export default function ContactForm() {
       return;
     }
 
-    const nextPhotos = await Promise.all(
-      files.map(
-        (file) =>
-          new Promise<{ name: string; data: string }>((resolve, reject) => {
-            const reader = new FileReader();
+    const remainingSlots = MAX_PHOTOS_PER_REQUEST - photos.length;
+    if (remainingSlots <= 0) {
+      alert(`You can upload up to ${MAX_PHOTOS_PER_REQUEST} photos per request.`);
+      event.target.value = '';
+      return;
+    }
 
-            reader.onload = () => {
-              const result = reader.result;
-              if (typeof result === 'string') {
-                resolve({ name: file.name, data: result.split(',')[1] ?? result });
-              } else {
-                reject(new Error('Failed to read file'));
-              }
-            };
+    const selectedFiles = files.slice(0, remainingSlots);
+    if (selectedFiles.length !== files.length) {
+      alert(`You can upload up to ${MAX_PHOTOS_PER_REQUEST} photos per request.`);
+    }
 
-            reader.onerror = () => reject(new Error('Failed to read file'));
-            reader.readAsDataURL(file);
-          })
-      )
-    );
+    const nextPhotos = await Promise.all(selectedFiles.map((file) => compressImage(file)));
 
     setPhotos((current) => {
       const merged = [...current, ...nextPhotos];
@@ -95,7 +137,7 @@ export default function ContactForm() {
         (photo, index, array) =>
           index === array.findIndex((item) => item.name === photo.name && item.data === photo.data)
       );
-      return unique;
+      return unique.slice(0, MAX_PHOTOS_PER_REQUEST);
     });
 
     event.target.value = '';
@@ -134,7 +176,7 @@ export default function ContactForm() {
         }),
       });
       if (!res.ok) throw new Error('Failed');
-      setSubmitted(true);
+      onSubmitted?.();
     } catch {
       alert(text.submission_error);
     } finally {
@@ -151,13 +193,7 @@ export default function ContactForm() {
 
   return (
     <div className="w-full max-w-md mx-auto p-2">
-      {submitted ? (
-        <div className="text-center">
-          <h2 className="text-xl font-bold mb-4">{text.thank_you}</h2>
-          <p className="text-gray-600">{text.success_message}</p>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
           <FieldGroup>
             <FieldSet>
               <FieldGroup>
@@ -375,7 +411,6 @@ export default function ContactForm() {
             </Field>
           </FieldGroup>
         </form>
-      )}
     </div>
   );
 }
