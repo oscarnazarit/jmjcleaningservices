@@ -134,7 +134,8 @@ export default function HomePageContent() {
                       href={service.href}
                       className="mt-auto flex items-center gap-1 text-sm font-semibold text-[rgb(17,39,77)] transition-colors hover:text-[rgb(17,39,77)] dark:text-[#D4D4D4] dark:hover:text-[#D4D4D4]"
                     >
-                      Learn more <ArrowRight className="h-3 w-3" />
+                      {language === 'en' ? 'Learn more' : 'Más información'}{' '}
+                      <ArrowRight className="h-3 w-3" />
                     </Link>
                   </CardContent>
                 </Card>
@@ -142,12 +143,12 @@ export default function HomePageContent() {
             })}
           </div>
           <p className="mt-8 text-center text-sm font-medium">
-            View all services{' '}
+            {language === 'en' ? 'View all services' : 'Ver todos los servicios'}{' '}
             <Link
               href="/services"
               className="font-medium underline underline-offset-4 transition-opacity hover:opacity-75"
             >
-              here.
+              {language === 'en' ? 'here.' : 'aquí.'}
             </Link>{' '}
           </p>
         </div>

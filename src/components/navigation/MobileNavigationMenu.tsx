@@ -39,7 +39,7 @@ export default function MobileNavigationMenu() {
         <nav className="flex h-full flex-col gap-4 pt-2">
           <div className="px-4">
             <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-[rgb(86,155,221)]">
-              Explore
+              {language === 'en' ? 'Explore' : 'Explorar'}
             </p>
             <div className="flex flex-col gap-2">
               {links.map((link) => (
@@ -57,14 +57,15 @@ export default function MobileNavigationMenu() {
         </nav>
         <SheetFooter className="flex-col items-stretch gap-2 pt-4">
           <p className="px-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[rgb(86,155,221)]">
-            Quick contact
+            {language === 'en' ? 'Quick contact' : 'Contacto rápido'}
           </p>
           <Link
             href={`tel:+1-${companyPhoneNumber}`}
             className={cn(buttonVariants({ variant: 'default' }), 'bg-[rgb(86,155,221)] text-lg')}
           >
             <span className="flex flex-row gap-2">
-              Call now <PhoneIcon width={'5'} height={'5'} className="m-auto" />
+              {language === 'en' ? 'Call now' : 'Llamar ahora'}{' '}
+              <PhoneIcon width={'5'} height={'5'} className="m-auto" />
             </span>
           </Link>
           <Link
@@ -72,7 +73,7 @@ export default function MobileNavigationMenu() {
             onClick={() => setOpen(false)}
             className={cn(buttonVariants({ variant: 'default' }), 'bg-[rgb(86,155,221)] text-lg')}
           >
-            Get a free quote
+            {language === 'en' ? 'Get a free quote' : 'Solicitar cotización gratuita'}
           </Link>
         </SheetFooter>
       </SheetContent>

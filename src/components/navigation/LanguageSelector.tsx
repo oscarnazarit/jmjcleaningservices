@@ -11,10 +11,11 @@ type LanguageSelectorProps = {
 
 export default function LanguageSelector({
   className,
-  label = 'Language',
+  label,
   selectClassName,
 }: LanguageSelectorProps) {
   const { language, setLanguage } = useLanguage();
+  const resolvedLabel = label ?? (language === 'en' ? 'Language' : 'Idioma');
 
   return (
     <div
@@ -23,7 +24,7 @@ export default function LanguageSelector({
         className
       )}
     >
-      {label ? <span className="font-medium">{label}</span> : null}
+      {resolvedLabel ? <span className="font-medium">{resolvedLabel}</span> : null}
       <select
         value={language}
         onChange={(event) => setLanguage(event.target.value as 'en' | 'es')}
