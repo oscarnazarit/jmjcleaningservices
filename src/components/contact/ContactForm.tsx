@@ -194,51 +194,70 @@ export default function ContactForm({ onSubmitted }: ContactFormProps) {
   return (
     <div className="w-full max-w-md mx-auto p-2">
       <form onSubmit={handleSubmit}>
-          <FieldGroup>
-            <FieldSet>
-              <FieldGroup>
-                <Field>
-                  <FieldLabel htmlFor="name">{text.name_label}</FieldLabel>
-                  <Input
-                    id="name-field"
-                    placeholder={text.name_placeholder}
-                    required
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </Field>
-                <Field>
-                  <FieldLabel htmlFor="email">{text.email_label}</FieldLabel>
-                  <Input
-                    id="email-field"
-                    placeholder={text.email_placeholder}
-                    type="email"
-                    required
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <FieldDescription>{text.email_note}</FieldDescription>
-                </Field>
-                <Field>
-                  <FieldLabel htmlFor="phone">{text.phone_label}</FieldLabel>
-                  <Input
-                    id="phone-field"
-                    placeholder="(123) 456-7890"
-                    type="tel"
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
-                  {phoneError && <FieldError>{phoneError}</FieldError>}
-                </Field>
-              </FieldGroup>
-            </FieldSet>
-            <FieldSeparator />
+        <FieldGroup>
+          <FieldSet>
+            <FieldGroup>
+              <Field>
+                <FieldLabel htmlFor="name">{text.name_label}</FieldLabel>
+                <Input
+                  id="name-field"
+                  placeholder={text.name_placeholder}
+                  required
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="email">{text.email_label}</FieldLabel>
+                <Input
+                  id="email-field"
+                  placeholder={text.email_placeholder}
+                  type="email"
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <FieldDescription>{text.email_note}</FieldDescription>
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="phone">{text.phone_label}</FieldLabel>
+                <Input
+                  id="phone-field"
+                  placeholder="(123) 456-7890"
+                  type="tel"
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+                {phoneError && <FieldError>{phoneError}</FieldError>}
+              </Field>
+            </FieldGroup>
+          </FieldSet>
+          <FieldSeparator />
+          <Field>
+            <FieldLabel htmlFor="service-select">{text.service_label}</FieldLabel>
+            <Select items={serviceOptions} onValueChange={(value) => setService(value as string)}>
+              <SelectTrigger id="service-select">
+                <SelectValue placeholder={text.service_select_placeholder} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {serviceOptions.map((item) => (
+                    <SelectItem key={item.value} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </Field>
+
+          {service === 'commercial' ? (
             <Field>
-              <FieldLabel htmlFor="service-select">{text.service_label}</FieldLabel>
-              <Select items={serviceOptions} onValueChange={(value) => setService(value as string)}>
-                <SelectTrigger id="service-select">
-                  <SelectValue placeholder={text.service_select_placeholder} />
+              <FieldLabel htmlFor="business-type">{text.business_type_label}</FieldLabel>
+              <Select onValueChange={(value) => setBusinessType(value as string)}>
+                <SelectTrigger id="business-type">
+                  <SelectValue placeholder={text.business_type_placeholder} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    {serviceOptions.map((item) => (
+                    {businessTypeOptions.map((item) => (
                       <SelectItem key={item.value} value={item.value}>
                         {item.label}
                       </SelectItem>
@@ -247,170 +266,151 @@ export default function ContactForm({ onSubmitted }: ContactFormProps) {
                 </SelectContent>
               </Select>
             </Field>
-
-            {service === 'commercial' ? (
-              <Field>
-                <FieldLabel htmlFor="business-type">{text.business_type_label}</FieldLabel>
-                <Select onValueChange={(value) => setBusinessType(value as string)}>
-                  <SelectTrigger id="business-type">
-                    <SelectValue placeholder={text.business_type_placeholder} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {businessTypeOptions.map((item) => (
-                        <SelectItem key={item.value} value={item.value}>
-                          {item.label}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </Field>
-            ) : service === 'specialty-services' ? (
-              <Field>
-                <FieldLabel htmlFor="specialty-service">{text.specialty_service_label}</FieldLabel>
-                <Select onValueChange={(value) => setSpecialtyType(value as string)}>
-                  <SelectTrigger id="specialty-service">
-                    <SelectValue placeholder={text.specialty_service_placeholder} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {specialtyServiceOptions.map((item) => (
-                        <SelectItem key={item.value} value={item.value}>
-                          {item.label}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </Field>
-            ) : service === 'residential' ||
-              service === 'deep-cleaning' ||
-              service === 'move-in-out' ||
-              service === 'post-construction' ? (
-              <FieldSet>
-                <FieldGroup>
-                  <Field>
-                    <FieldLabel htmlFor="bedrooms">{text.bedrooms_label}</FieldLabel>
-                    <Input
-                      id="bedrooms"
-                      type="number"
-                      min="0"
-                      placeholder="0"
-                      value={bedrooms}
-                      onChange={(e) => setBedrooms(e.target.value)}
-                    />
-                  </Field>
-                  <Field>
-                    <FieldLabel htmlFor="bathrooms">{text.bathrooms_label}</FieldLabel>
-                    <Input
-                      id="bathrooms"
-                      type="number"
-                      min="0"
-                      placeholder="0"
-                      value={bathrooms}
-                      onChange={(e) => setBathrooms(e.target.value)}
-                    />
-                  </Field>
-                  <Field>
-                    <FieldLabel htmlFor="square-footage">{text.square_footage_label}</FieldLabel>
-                    <Select onValueChange={(value) => setSquareFootage(value as string)}>
-                      <SelectTrigger id="square-footage">
-                        <SelectValue placeholder={text.square_footage_placeholder} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {text.square_footage_options.map((item) => (
-                            <SelectItem key={item.value} value={item.value}>
-                              {item.label}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </Field>
-                </FieldGroup>
-              </FieldSet>
-            ) : null}
-            <FieldSet>
-              <FieldGroup>
-                <Field>
-                  <FieldLabel htmlFor="service-description">
-                    {text.service_description_label}
-                  </FieldLabel>
-                  <Textarea
-                    id="service-description"
-                    placeholder={text.service_description_placeholder}
-                    className="resize-none"
-                    onChange={(e) => setDescription(e.target.value)}
-                  />
-                </Field>
-                <Field>
-                  <FieldLabel htmlFor="photos">{text.photos_label}</FieldLabel>
-                  <label
-                    htmlFor="photos"
-                    className="flex cursor-pointer items-center justify-between gap-3 rounded-lg border border-input bg-background px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent"
-                  >
-                    <span className="flex items-center gap-2">
-                      <Upload className="h-4 w-4" />
-                      <span>
-                        {photos.length > 0
-                          ? `${photos.length} photo${photos.length > 1 ? 's' : ''} selected`
-                          : language === 'en'
-                            ? 'Upload photos'
-                            : 'Subir fotos'}
-                      </span>
-                    </span>
-                    <span className="text-xs font-medium text-foreground">Browse</span>
-                  </label>
-                  <Input
-                    id="photos"
-                    type="file"
-                    accept="image/*"
-                    multiple={true}
-                    onChange={handlePhotoUpload}
-                    className="hidden"
-                  />
-                  {photos.length > 0 && (
-                    <div className="mt-2 space-y-1">
-                      <ul className="space-y-1 text-sm text-muted-foreground">
-                        {photos.map((photo) => (
-                          <li key={`${photo.name}-${photo.data.slice(0, 20)}`} className="truncate">
-                            • {photo.name}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </Field>
-              </FieldGroup>
-            </FieldSet>
-            <FieldSet>
-              <FieldLegend>{text.agreement_label}</FieldLegend>
-              <FieldDescription>{text.agreement_description}</FieldDescription>
-              <FieldGroup>
-                <Field orientation="horizontal">
-                  <Checkbox
-                    id="agreement"
-                    checked={agreement}
-                    onCheckedChange={(checked) => setAgreement(Boolean(checked))}
-                    required
-                  />
-                  <FieldLabel htmlFor="agreement" className="font-normal">
-                    <p>
-                      {text.agreement_checkbox} <span className="ml-1 text-red-500">*</span>
-                    </p>
-                  </FieldLabel>
-                </Field>
-              </FieldGroup>
-            </FieldSet>
-            <Field orientation="horizontal">
-              <Button type="submit" disabled={loading} className="bg-[rgb(86,155,221)]">
-                {loading ? text.submitting : text.submit}
-              </Button>
+          ) : service === 'specialty-services' ? (
+            <Field>
+              <FieldLabel htmlFor="specialty-service">{text.specialty_service_label}</FieldLabel>
+              <Select onValueChange={(value) => setSpecialtyType(value as string)}>
+                <SelectTrigger id="specialty-service">
+                  <SelectValue placeholder={text.specialty_service_placeholder} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {specialtyServiceOptions.map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </Field>
-          </FieldGroup>
-        </form>
+          ) : service === 'residential' ||
+            service === 'deep-cleaning' ||
+            service === 'move-in-out' ||
+            service === 'post-construction' ? (
+            <FieldSet>
+              <FieldGroup>
+                <Field>
+                  <FieldLabel htmlFor="bedrooms">{text.bedrooms_label}</FieldLabel>
+                  <Input
+                    id="bedrooms"
+                    type="number"
+                    min="0"
+                    placeholder="0"
+                    value={bedrooms}
+                    onChange={(e) => setBedrooms(e.target.value)}
+                  />
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="bathrooms">{text.bathrooms_label}</FieldLabel>
+                  <Input
+                    id="bathrooms"
+                    type="number"
+                    min="0"
+                    placeholder="0"
+                    value={bathrooms}
+                    onChange={(e) => setBathrooms(e.target.value)}
+                  />
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="square-footage">{text.square_footage_label}</FieldLabel>
+                  <Select onValueChange={(value) => setSquareFootage(value as string)}>
+                    <SelectTrigger id="square-footage">
+                      <SelectValue placeholder={text.square_footage_placeholder} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {text.square_footage_options.map((item) => (
+                          <SelectItem key={item.value} value={item.value}>
+                            {item.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </Field>
+              </FieldGroup>
+            </FieldSet>
+          ) : null}
+          <FieldSet>
+            <FieldGroup>
+              <Field>
+                <FieldLabel htmlFor="service-description">
+                  {text.service_description_label}
+                </FieldLabel>
+                <Textarea
+                  id="service-description"
+                  placeholder={text.service_description_placeholder}
+                  className="resize-none"
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="photos">{text.photos_label}</FieldLabel>
+                <label
+                  htmlFor="photos"
+                  className="flex cursor-pointer items-center justify-between gap-3 rounded-lg border border-input bg-background px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent"
+                >
+                  <span className="flex items-center gap-2">
+                    <Upload className="h-4 w-4" />
+                    <span>
+                      {photos.length > 0
+                        ? `${photos.length} photo${photos.length > 1 ? 's' : ''} selected`
+                        : language === 'en'
+                          ? 'Upload photos'
+                          : 'Subir fotos'}
+                    </span>
+                  </span>
+                  <span className="text-xs font-medium text-foreground">Browse</span>
+                </label>
+                <Input
+                  id="photos"
+                  type="file"
+                  accept="image/*"
+                  multiple={true}
+                  onChange={handlePhotoUpload}
+                  className="hidden"
+                />
+                {photos.length > 0 && (
+                  <div className="mt-2 space-y-1">
+                    <ul className="space-y-1 text-sm text-muted-foreground">
+                      {photos.map((photo) => (
+                        <li key={`${photo.name}-${photo.data.slice(0, 20)}`} className="truncate">
+                          • {photo.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </Field>
+            </FieldGroup>
+          </FieldSet>
+          <FieldSet>
+            <FieldLegend>{text.agreement_label}</FieldLegend>
+            <FieldDescription>{text.agreement_description}</FieldDescription>
+            <FieldGroup>
+              <Field orientation="horizontal">
+                <Checkbox
+                  id="agreement"
+                  checked={agreement}
+                  onCheckedChange={(checked) => setAgreement(Boolean(checked))}
+                  required
+                />
+                <FieldLabel htmlFor="agreement" className="font-normal">
+                  <p>
+                    {text.agreement_checkbox} <span className="ml-1 text-red-500">*</span>
+                  </p>
+                </FieldLabel>
+              </Field>
+            </FieldGroup>
+          </FieldSet>
+          <Field orientation="horizontal">
+            <Button type="submit" disabled={loading} className="bg-[rgb(86,155,221)]">
+              {loading ? text.submitting : text.submit}
+            </Button>
+          </Field>
+        </FieldGroup>
+      </form>
     </div>
   );
 }
