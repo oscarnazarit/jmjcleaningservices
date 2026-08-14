@@ -21,56 +21,91 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { copy } from '@/app/text';
+import { Upload } from 'lucide-react';
 import { useState } from 'react';
 
-const ServiceOptions = [
-  { label: 'Select a service', value: null },
-  { value: 'residential', label: 'Residential Cleaning' },
-  { value: 'commercial', label: 'Commercial Cleaning' },
-  { value: 'deep-cleaning', label: 'Deep Cleaning' },
-  { value: 'move-in-out', label: 'Move In/Out Cleaning' },
-  { value: 'post-construction', label: 'Post-Construction Cleaning' },
-  { value: 'specialty-services', label: 'Specialty Services' },
-];
-
-const BusinessTypeOptions = [
-  { label: 'Select a business type', value: '' },
-  { label: 'Office', value: 'office' },
-  { label: 'Retail', value: 'retail' },
-  { label: 'Medical', value: 'medical' },
-  { label: 'Industrial', value: 'industrial' },
-  { label: 'Gym/Fitness', value: 'gym-fitness' },
-  { label: 'Restaurant', value: 'restaurant' },
-  { label: 'Other', value: 'other' },
-];
-
-const SpecialtyServiceOptions = [
-  { label: 'Select a specialty service', value: '' },
-  { label: 'Carpet Cleaning', value: 'carpet-cleaning' },
-  { label: 'Pressure Washing', value: 'pressure-washing' },
-  { label: 'Window Cleaning', value: 'window-cleaning' },
-];
-
 export default function ContactForm() {
+  const { language } = useLanguage();
+  const text = copy[language].contact;
+
+  const serviceOptions = [
+    { label: text.service_select_placeholder, value: '' },
+    ...text.service_options,
+  ];
+
+  const businessTypeOptions = [
+    { label: text.business_type_placeholder, value: '' },
+    ...text.business_type_options,
+  ];
+
+  const specialtyServiceOptions = [
+    { label: text.specialty_service_placeholder, value: '' },
+    ...text.specialty_service_options,
+  ];
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [service, setService] = useState('');
   const [bedrooms, setBedrooms] = useState('');
   const [bathrooms, setBathrooms] = useState('');
+  const [squareFootage, setSquareFootage] = useState('');
   const [businessType, setBusinessType] = useState('');
   const [specialtyType, setSpecialtyType] = useState('');
   const [description, setDescription] = useState('');
+  const [photos, setPhotos] = useState<Array<{ name: string; data: string }>>([]);
   const [agreement, setAgreement] = useState(false);
   const [loading, setLoading] = useState(false);
   const [phoneError, setPhoneError] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
+  const handlePhotoUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files ?? []);
+    if (files.length === 0) {
+      setPhotos([]);
+      return;
+    }
+
+    const nextPhotos = await Promise.all(
+      files.map(
+        (file) =>
+          new Promise<{ name: string; data: string }>((resolve, reject) => {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+              const result = reader.result;
+              if (typeof result === 'string') {
+                resolve({ name: file.name, data: result.split(',')[1] ?? result });
+              } else {
+                reject(new Error('Failed to read file'));
+              }
+            };
+
+            reader.onerror = () => reject(new Error('Failed to read file'));
+            reader.readAsDataURL(file);
+          })
+      )
+    );
+
+    setPhotos((current) => {
+      const merged = [...current, ...nextPhotos];
+      const unique = merged.filter(
+        (photo, index, array) =>
+          index === array.findIndex((item) => item.name === photo.name && item.data === photo.data)
+      );
+      return unique;
+    });
+
+    event.target.value = '';
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Handle form submission logic here
     if (!name.trim() || !email.trim() || !service.trim() || !agreement) {
-      alert('Please fill out all required fields and agree to the user agreement.');
+      alert(text.required_error);
       return;
     }
     setLoading(true);
@@ -92,14 +127,16 @@ export default function ContactForm() {
           description,
           bedrooms,
           bathrooms,
+          squareFootage,
           businessType,
           specialtyType,
+          photos,
         }),
       });
       if (!res.ok) throw new Error('Failed');
       setSubmitted(true);
     } catch {
-      alert('Something went wrong. Please try again or call us directly.');
+      alert(text.submission_error);
     } finally {
       setLoading(false);
     }
@@ -108,7 +145,7 @@ export default function ContactForm() {
   const validatePhone = (value: string) => {
     if (!value) return null;
     const digits = value.replace(/\D/g, '');
-    if (digits.length !== 10 && digits.length !== 11) return 'Please enter a valid US phone number';
+    if (digits.length !== 10 && digits.length !== 11) return text.phone_error;
     return null;
   };
 
@@ -116,11 +153,8 @@ export default function ContactForm() {
     <div className="w-full max-w-md mx-auto p-2">
       {submitted ? (
         <div className="text-center">
-          <h2 className="text-xl font-bold mb-4">Thank You!</h2>
-          <p className="text-gray-600">
-            Your message has been submitted successfully. We will get back to you as soon as
-            possible.
-          </p>
+          <h2 className="text-xl font-bold mb-4">{text.thank_you}</h2>
+          <p className="text-gray-600">{text.success_message}</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
@@ -128,29 +162,27 @@ export default function ContactForm() {
             <FieldSet>
               <FieldGroup>
                 <Field>
-                  <FieldLabel htmlFor="name">Name</FieldLabel>
+                  <FieldLabel htmlFor="name">{text.name_label}</FieldLabel>
                   <Input
                     id="name-field"
-                    placeholder="John Doe"
+                    placeholder={text.name_placeholder}
                     required
                     onChange={(e) => setName(e.target.value)}
                   />
                 </Field>
                 <Field>
-                  <FieldLabel htmlFor="email">Email</FieldLabel>
+                  <FieldLabel htmlFor="email">{text.email_label}</FieldLabel>
                   <Input
                     id="email-field"
-                    placeholder="john.doe@example.com"
+                    placeholder={text.email_placeholder}
                     type="email"
                     required
                     onChange={(e) => setEmail(e.target.value)}
                   />
-                  <FieldDescription>
-                    We&apos;ll never share your email with anyone else.
-                  </FieldDescription>
+                  <FieldDescription>{text.email_note}</FieldDescription>
                 </Field>
                 <Field>
-                  <FieldLabel htmlFor="phone">Phone Number (Optional)</FieldLabel>
+                  <FieldLabel htmlFor="phone">{text.phone_label}</FieldLabel>
                   <Input
                     id="phone-field"
                     placeholder="(123) 456-7890"
@@ -163,14 +195,14 @@ export default function ContactForm() {
             </FieldSet>
             <FieldSeparator />
             <Field>
-              <FieldLabel htmlFor="service-select">Service</FieldLabel>
-              <Select items={ServiceOptions} onValueChange={(value) => setService(value as string)}>
+              <FieldLabel htmlFor="service-select">{text.service_label}</FieldLabel>
+              <Select items={serviceOptions} onValueChange={(value) => setService(value as string)}>
                 <SelectTrigger id="service-select">
-                  <SelectValue />
+                  <SelectValue placeholder={text.service_select_placeholder} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    {ServiceOptions.map((item) => (
+                    {serviceOptions.map((item) => (
                       <SelectItem key={item.value} value={item.value}>
                         {item.label}
                       </SelectItem>
@@ -182,14 +214,14 @@ export default function ContactForm() {
 
             {service === 'commercial' ? (
               <Field>
-                <FieldLabel htmlFor="business-type">Business Type</FieldLabel>
+                <FieldLabel htmlFor="business-type">{text.business_type_label}</FieldLabel>
                 <Select onValueChange={(value) => setBusinessType(value as string)}>
                   <SelectTrigger id="business-type">
-                    <SelectValue placeholder="Select a business type" />
+                    <SelectValue placeholder={text.business_type_placeholder} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      {BusinessTypeOptions.map((item) => (
+                      {businessTypeOptions.map((item) => (
                         <SelectItem key={item.value} value={item.value}>
                           {item.label}
                         </SelectItem>
@@ -200,14 +232,14 @@ export default function ContactForm() {
               </Field>
             ) : service === 'specialty-services' ? (
               <Field>
-                <FieldLabel htmlFor="specialty-service">Specialty Service</FieldLabel>
+                <FieldLabel htmlFor="specialty-service">{text.specialty_service_label}</FieldLabel>
                 <Select onValueChange={(value) => setSpecialtyType(value as string)}>
                   <SelectTrigger id="specialty-service">
-                    <SelectValue placeholder="Select a specialty service" />
+                    <SelectValue placeholder={text.specialty_service_placeholder} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      {SpecialtyServiceOptions.map((item) => (
+                      {specialtyServiceOptions.map((item) => (
                         <SelectItem key={item.value} value={item.value}>
                           {item.label}
                         </SelectItem>
@@ -223,7 +255,7 @@ export default function ContactForm() {
               <FieldSet>
                 <FieldGroup>
                   <Field>
-                    <FieldLabel htmlFor="bedrooms">Number of Bedrooms</FieldLabel>
+                    <FieldLabel htmlFor="bedrooms">{text.bedrooms_label}</FieldLabel>
                     <Input
                       id="bedrooms"
                       type="number"
@@ -234,7 +266,7 @@ export default function ContactForm() {
                     />
                   </Field>
                   <Field>
-                    <FieldLabel htmlFor="bathrooms">Number of Bathrooms</FieldLabel>
+                    <FieldLabel htmlFor="bathrooms">{text.bathrooms_label}</FieldLabel>
                     <Input
                       id="bathrooms"
                       type="number"
@@ -244,6 +276,23 @@ export default function ContactForm() {
                       onChange={(e) => setBathrooms(e.target.value)}
                     />
                   </Field>
+                  <Field>
+                    <FieldLabel htmlFor="square-footage">{text.square_footage_label}</FieldLabel>
+                    <Select onValueChange={(value) => setSquareFootage(value as string)}>
+                      <SelectTrigger id="square-footage">
+                        <SelectValue placeholder={text.square_footage_placeholder} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {text.square_footage_options.map((item) => (
+                            <SelectItem key={item.value} value={item.value}>
+                              {item.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </Field>
                 </FieldGroup>
               </FieldSet>
             ) : null}
@@ -251,23 +300,58 @@ export default function ContactForm() {
               <FieldGroup>
                 <Field>
                   <FieldLabel htmlFor="service-description">
-                    Service Description (Optional)
+                    {text.service_description_label}
                   </FieldLabel>
                   <Textarea
                     id="service-description"
-                    placeholder="A short description of your cleaning needs..."
+                    placeholder={text.service_description_placeholder}
                     className="resize-none"
                     onChange={(e) => setDescription(e.target.value)}
                   />
                 </Field>
+                <Field>
+                  <FieldLabel htmlFor="photos">{text.photos_label}</FieldLabel>
+                  <label
+                    htmlFor="photos"
+                    className="flex cursor-pointer items-center justify-between gap-3 rounded-lg border border-input bg-background px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent"
+                  >
+                    <span className="flex items-center gap-2">
+                      <Upload className="h-4 w-4" />
+                      <span>
+                        {photos.length > 0
+                          ? `${photos.length} photo${photos.length > 1 ? 's' : ''} selected`
+                          : language === 'en'
+                            ? 'Upload photos'
+                            : 'Subir fotos'}
+                      </span>
+                    </span>
+                    <span className="text-xs font-medium text-foreground">Browse</span>
+                  </label>
+                  <Input
+                    id="photos"
+                    type="file"
+                    accept="image/*"
+                    multiple={true}
+                    onChange={handlePhotoUpload}
+                    className="hidden"
+                  />
+                  {photos.length > 0 && (
+                    <div className="mt-2 space-y-1">
+                      <ul className="space-y-1 text-sm text-muted-foreground">
+                        {photos.map((photo) => (
+                          <li key={`${photo.name}-${photo.data.slice(0, 20)}`} className="truncate">
+                            • {photo.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </Field>
               </FieldGroup>
             </FieldSet>
             <FieldSet>
-              <FieldLegend>User Agreement</FieldLegend>
-              <FieldDescription>
-                A quick confirmation that you agree to be contacted by JMJ Cleaning Services LLC
-                regarding your request for a free quote.
-              </FieldDescription>
+              <FieldLegend>{text.agreement_label}</FieldLegend>
+              <FieldDescription>{text.agreement_description}</FieldDescription>
               <FieldGroup>
                 <Field orientation="horizontal">
                   <Checkbox
@@ -278,8 +362,7 @@ export default function ContactForm() {
                   />
                   <FieldLabel htmlFor="agreement" className="font-normal">
                     <p>
-                      I agree to be contacted by JMJ Cleaning Services LLC regarding my request for
-                      a free quote. <span className="ml-1 text-red-500">*</span>
+                      {text.agreement_checkbox} <span className="ml-1 text-red-500">*</span>
                     </p>
                   </FieldLabel>
                 </Field>
@@ -287,7 +370,7 @@ export default function ContactForm() {
             </FieldSet>
             <Field orientation="horizontal">
               <Button type="submit" disabled={loading} className="bg-[rgb(86,155,221)]">
-                {loading ? 'Submitting...' : 'Submit'}
+                {loading ? text.submitting : text.submit}
               </Button>
             </Field>
           </FieldGroup>

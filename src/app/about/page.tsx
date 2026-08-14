@@ -2,7 +2,7 @@
 
 import { buttonVariants } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle2, Clock } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -15,7 +15,7 @@ export default function AboutPage() {
 
   const displayValues = [
     {
-      icon: Clock,
+      icon: CheckCircle2,
       title: text.values_cards[0].card_name,
       description: text.values_cards[0].card_description,
     },
@@ -87,7 +87,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="mb-16 py-16 md:py-4">
+        <section className="mb-16 pt-16">
           <div className="container mx-auto max-w-6xl px-4 md:px-6">
             <div className="mb-12 text-center">
               <Badge className="mb-4 text-sm font-semibold uppercase tracking-wide">

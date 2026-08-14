@@ -3,11 +3,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { serviceTypes, type Service } from '@/app/constants';
+import { copy } from '@/app/text';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/lib/use-mobile';
+import { useLanguage } from '@/contexts/LanguageContext';
 import TabContents from './TabContents';
-
-const services = serviceTypes;
 
 const getServiceNameFromHash = (hash: string) => {
   const normalized = hash.replace('#', '').toLowerCase();
@@ -16,7 +16,7 @@ const getServiceNameFromHash = (hash: string) => {
     return null;
   }
 
-  const match = services.find((service) => {
+  const match = serviceTypes.find((service) => {
     const labelSlug = service.label.toLowerCase().replace(/[^a-z0-9]+/g, '-');
     const nameSlug = service.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
@@ -27,7 +27,7 @@ const getServiceNameFromHash = (hash: string) => {
 };
 
 const getHashForServiceName = (serviceName: string) => {
-  const service = services.find((item) => item.name === serviceName);
+  const service = serviceTypes.find((item) => item.name === serviceName);
 
   if (!service) {
     return serviceName;
@@ -37,7 +37,26 @@ const getHashForServiceName = (serviceName: string) => {
 };
 
 export function ServiceTabs() {
+  const { language } = useLanguage();
   const isMobile = useIsMobile();
+
+  const services = useMemo<Service[]>(() => {
+    const translatedServices = copy[language].services.service_tabs;
+
+    return serviceTypes.map((service, index) => {
+      const translated = translatedServices[index];
+
+      return {
+        ...service,
+        label: translated?.service_name ?? service.label,
+        description: translated?.service_description ?? service.description,
+        shortDescription: translated?.service_tagline ?? service.shortDescription,
+        includes: translated?.includes ?? service.includes,
+        optionalServices: translated?.optionalServices ?? service.optionalServices,
+      };
+    });
+  }, [language]);
+
   const [activeService, setActiveService] = useState<string>(services[0]?.name ?? 'residential');
   const [startIndex, setStartIndex] = useState(0);
   const [hasMounted, setHasMounted] = useState(false);
@@ -46,7 +65,7 @@ export function ServiceTabs() {
   const visibleServices = useMemo(() => {
     const endIndex = Math.min(startIndex + 3, services.length);
     return services.slice(startIndex, endIndex);
-  }, [startIndex]);
+  }, [startIndex, services]);
 
   const selectService = (serviceName: string) => {
     setActiveService(serviceName);

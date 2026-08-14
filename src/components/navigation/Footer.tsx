@@ -39,7 +39,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest">Services</h3>
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest">{language === 'en' ? 'Services' : 'Servicios'}</h3>
             <ul className="flex flex-col gap-2 text-sm">
               {serviceTypes.map((link, index) => (
                 <li key={link.label}>
@@ -55,7 +55,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest">Contact</h3>
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest">{language === 'en' ? 'Contact' : 'Contacto'}</h3>
             <ul className="flex flex-col gap-3 text-sm">
               <li className="flex items-start gap-2">
                 <Phone className="mt-0.5 h-4 w-4 shrink-0" />
@@ -75,16 +75,16 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col items-center justify-between gap-2 border-t border-zinc-800 pt-6 text-xs text-zinc-600 dark:text-[#D4D4D4] sm:flex-row">
           <p>
-            © {new Date().getFullYear()} {companyName}. All rights reserved.
+            © {new Date().getFullYear()} {companyName}. {language === 'en' ? 'All rights reserved.' : 'Todos los derechos reservados.'}
           </p>
           <div className="flex items-center gap-4">
             <Link
               href="/privacy-policy"
               className="transition-colors hover:text-[rgb(17,39,77)] dark:hover:text-[rgb(17,39,77)]"
             >
-              Privacy Policy
+              {language === 'en' ? 'Privacy Policy' : 'Política de Privacidad'}
             </Link>
-            <p>Licensed &amp; Insured</p>
+            <p>{language === 'en' ? 'Licensed & Insured' : 'Licenciado y Asegurado'}</p>
           </div>
         </div>
       </div>

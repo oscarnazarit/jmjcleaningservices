@@ -1,13 +1,17 @@
 import nodemailer from 'nodemailer';
 import { NextResponse } from 'next/server';
 
-const transporter = nodemailer.createTransport({
+const gmailUser = process.env.GMAIL_USER;
+const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
+const clientEmail = process.env.CLIENT_EMAIL;
+
+const transporter = gmailUser && gmailAppPassword ? nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
+    user: gmailUser,
+    pass: gmailAppPassword,
   },
-});
+}) : null;
 
 const submittedIPs = new Map<string, number>();
 
@@ -24,6 +28,10 @@ export async function POST(req: Request) {
 
   submittedIPs.set(ip, Date.now());
   try {
+    if (!transporter || !gmailUser || !gmailAppPassword || !clientEmail) {
+      throw new Error('Missing email configuration: GMAIL_USER, GMAIL_APP_PASSWORD, and CLIENT_EMAIL must be set.');
+    }
+
     const {
       name,
       email,
@@ -32,22 +40,51 @@ export async function POST(req: Request) {
       description,
       bedrooms,
       bathrooms,
+      squareFootage,
       businessType,
       specialtyType,
+      photos,
     } = await req.json();
+
+    const attachments = Array.isArray(photos)
+      ? photos
+          .filter((photo: { name?: string; data?: string }) => photo?.data && photo?.name)
+          .map((photo: { name?: string; data?: string }) => ({
+            filename: photo.name,
+            content: photo.data,
+            encoding: 'base64' as const,
+          }))
+      : [];
 
     const extraDetails =
       service === 'commercial'
         ? `Business Type: ${businessType || 'Not specified'}`
         : service === 'specialty-services'
           ? `Specialty Type: ${specialtyType || 'Not specified'}`
-          : `Bedrooms: ${bedrooms || 'Not specified'}<br/>Bathrooms: ${bathrooms || 'Not specified'}`;
+          : `Bedrooms: ${bedrooms || 'Not specified'}<br/>Bathrooms: ${bathrooms || 'Not specified'}<br/>Square Footage: ${squareFootage || 'Not specified'}`;
+
+    const descriptionText = (description ?? '').replace(/\n/g, '<br/>');
+    const photoHtml =
+      attachments.length > 0
+        ? `
+          <tr>
+            <td style="background:#fafafa;border-top:1px solid #f0f0f0;padding:20px 36px 24px;">
+              <p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#a1a1aa;">
+                Attached Photos (${attachments.length})
+              </p>
+              <p style="margin:0;font-size:13px;color:#3f3f46;">
+                ${attachments.map((attachment) => attachment.filename).join(', ')}
+              </p>
+            </td>
+          </tr>`
+        : '';
 
     await transporter.sendMail({
-      from: `"JMJ Cleaning Services Website" <${process.env.GMAIL_USER}>`,
-      to: process.env.CLIENT_EMAIL,
+      from: `"JMJ Cleaning Services Website" <${gmailUser}>`,
+      to: clientEmail,
       replyTo: email,
-      subject: `New Quote Request — ${service || 'General Inquiry'}`,
+      subject: `New Quote Request — ${service || 'General Inquiry'}${attachments.length ? ` (${attachments.length} photo${attachments.length > 1 ? 's' : ''})` : ''}`,
+      attachments,
       html: `
 					<!DOCTYPE html>
 					<html>
@@ -111,9 +148,11 @@ export async function POST(req: Request) {
 							<tr>
 								<td style="background:#fafafa;border-top:1px solid #f0f0f0;padding:24px 36px 28px;">
 								<p style="margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#a1a1aa;">Description</p>
-								<p style="margin:0;font-size:15px;line-height:1.7;color:#3f3f46;">${description.replace(/\n/g, '<br/>')}</p>
+								<p style="margin:0;font-size:15px;line-height:1.7;color:#3f3f46;">${descriptionText}</p>
 								</td>
 							</tr>
+
+							${photoHtml}
 
 							<!-- Footer -->
 							<tr>
@@ -134,6 +173,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Email error:', error);
-    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+    const message =
+      error instanceof Error && error.message.includes('Missing email configuration')
+        ? 'Email server is not configured yet.'
+        : 'Failed to send email';
+
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
