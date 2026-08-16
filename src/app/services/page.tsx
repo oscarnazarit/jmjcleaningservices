@@ -8,6 +8,11 @@ import { ServiceTabs } from '@/components/services/ServiceTabs';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { copy } from '@/app/text';
 
+export const metadata = {
+  title: 'JMJ Cleaning Services - Our Services',
+  description: 'Professional cleaning services for residential and commercial spaces.',
+};
+
 export default function ServicesPage() {
   const { language } = useLanguage();
   const text = copy[language].services;

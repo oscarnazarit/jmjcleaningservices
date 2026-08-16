@@ -5,6 +5,11 @@ import ContactForm from '@/components/contact/ContactForm';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { copy } from '@/app/text';
 
+export const metadata = {
+  title: 'JMJ Cleaning Services - Contact Us',
+  description: 'Get in touch with JMJ Cleaning Services for all your cleaning needs.',
+};
+
 export default function ContactPage() {
   const { language } = useLanguage();
   const text = copy[language].contact;

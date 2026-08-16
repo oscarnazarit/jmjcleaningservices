@@ -9,6 +9,11 @@ import { cn } from '@/lib/utils';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { copy } from '@/app/text';
 
+export const metadata = {
+  title: 'JMJ Cleaning Services - About Us',
+  description: 'Learn more about JMJ Cleaning Services and our commitment to excellence.',
+};
+
 export default function AboutPage() {
   const { language } = useLanguage();
   const text = copy[language].about;

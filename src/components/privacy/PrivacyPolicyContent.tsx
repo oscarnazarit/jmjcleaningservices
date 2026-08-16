@@ -4,15 +4,13 @@ import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { copy } from '@/app/text';
+import { companyEmail, companyPhoneNumber } from '@/app/constants';
 
 const LAST_UPDATED = 'July 25, 2026';
 
 export default function PrivacyPolicyContent() {
   const { language } = useLanguage();
   const text = copy[language].privacy;
-  const phone = '(515) 318-1617';
-  const phoneHref = 'tel:+15153181617';
-  const email = 'jmjcleaningservicesllc@gmail.com';
 
   return (
     <div className="flex flex-col">
@@ -93,14 +91,17 @@ export default function PrivacyPolicyContent() {
               <li>{text.business_name}</li>
               <li>
                 {text.phone_label}{' '}
-                <a href={phoneHref} className="hover:opacity-75 transition-opacity">
-                  {phone}
+                <a
+                  href={`tel:+1-${companyPhoneNumber}`}
+                  className="hover:opacity-75 transition-opacity"
+                >
+                  {companyPhoneNumber}
                 </a>
               </li>
               <li>
                 {text.email_label}{' '}
-                <a href={`mailto:${email}`} className="hover:opacity-75 transition-opacity">
-                  {email}
+                <a href={`mailto:${companyEmail}`} className="hover:opacity-75 transition-opacity">
+                  {companyEmail}
                 </a>
               </li>
               <li>{text.location}</li>
