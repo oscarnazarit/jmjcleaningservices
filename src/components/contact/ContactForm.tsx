@@ -395,6 +395,7 @@ export default function ContactForm({ onSubmitted }: ContactFormProps) {
                   checked={agreement}
                   onCheckedChange={(checked) => setAgreement(Boolean(checked))}
                   required
+                  className="hover:cursor-pointer"
                 />
                 <FieldLabel htmlFor="agreement" className="font-normal">
                   <p>
@@ -405,7 +406,11 @@ export default function ContactForm({ onSubmitted }: ContactFormProps) {
             </FieldGroup>
           </FieldSet>
           <Field orientation="horizontal">
-            <Button type="submit" disabled={loading} className="bg-[rgb(86,155,221)]">
+            <Button
+              type="submit"
+              disabled={loading}
+              className="bg-[rgb(86,155,221)] w-full text-lg py-4 hover:cursor-pointer"
+            >
               {loading ? text.submitting : text.submit}
             </Button>
           </Field>
