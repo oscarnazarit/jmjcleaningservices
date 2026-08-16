@@ -4,6 +4,7 @@ import './globals.css';
 import Navbar from '@/components/navigation/Navbar';
 import Footer from '@/components/navigation/Footer';
 import { LanguageProvider } from '@/contexts/LanguageContext';
+import { Analytics } from '@vercel/analytics/react';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -34,6 +35,7 @@ export default function RootLayout({
           <div className="flex min-h-screen w-full flex-col bg-zinc-50 font-sans dark:bg-black">
             <main className="flex w-full flex-col bg-white dark:bg-black items-center">
               {children}
+              <Analytics />
             </main>
           </div>
           <Footer />
