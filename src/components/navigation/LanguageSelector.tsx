@@ -20,7 +20,7 @@ export default function LanguageSelector({
   return (
     <div
       className={cn(
-        'flex items-center justify-between gap-3 rounded border border-[rgb(17,39,77)]/20 bg-[rgb(86,155,221)]/10 px-3 py-2 text-[rgb(17,39,77)]',
+        'flex items-center justify-between gap-3 rounded border border-dashed border-[rgb(17,39,77)]/15 bg-[rgb(86,155,221)]/2 px-3 py-2 text-[rgb(17,39,77)] text-sm',
         className
       )}
     >
