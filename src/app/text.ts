@@ -26,6 +26,11 @@ export const copy = {
         'Professional cleaning services for homes and businesses. We provide top-notch cleaning solutions tailored to your needs, ensuring a spotless environment every time.',
       quote_button: 'Get a Free Quote',
       services_button: 'View our Services',
+      offer_title: 'New Client Special!',
+      offer_subtitle: 'New client special for September',
+      offer_close: 'Close',
+      offer_reopen: '15% Off!',
+      offer_cta: 'Get a Free Quote',
       services_badge: 'WHAT WE DO',
       services_heading: 'Our Services',
       services_description:
@@ -405,6 +410,11 @@ export const copy = {
         'Servicios profesionales de limpieza para hogares y negocios. Ofrecemos soluciones de limpieza de primera calidad adaptadas a sus necesidades para garantizar un ambiente impecable en todo momento.',
       quote_button: 'Solicita una cotización gratis',
       services_button: 'Ver nuestros servicios',
+      offer_title: '¡Oferta para nuevos clientes!',
+      offer_subtitle: 'Oferta para clientes nuevos de septiembre',
+      offer_close: 'Cerrar',
+      offer_reopen: '¡15% de descuento!',
+      offer_cta: 'Solicita una cotización gratis',
       services_badge: 'LO QUE HACEMOS',
       services_heading: 'Nuestros servicios',
       services_description:

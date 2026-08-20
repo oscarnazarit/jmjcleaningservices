@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { copy } from '@/app/text';
 import { cn } from '@/lib/utils';
+import DealAlert from '@/components/home/DealAlert';
 
 const serviceIconMap = [HouseIcon, BuildingIcon, PackageOpen, PaintBucket];
 
@@ -45,6 +46,7 @@ export default function HomePageContent() {
 
   return (
     <>
+      <DealAlert />
       <section className="relative w-full overflow-hidden">
         <div
           className="absolute inset-0 opacity-100"
